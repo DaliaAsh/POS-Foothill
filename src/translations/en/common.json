@@ -1,0 +1,21 @@
+{
+    "login": {
+        "title": "ZAR POS",
+        "subtitle": "Login to Your Account",
+        "name": "Name",
+        "password": "Password",
+        "button": "Login",
+        "footer": "2020 Foothill",
+        "signUp": "Sign Up"
+    },
+    "header": {
+        "pos": "Pos",
+        "product": "Product",
+        "people": "People",
+        "sales": "Sales",
+        "expense": "Expense",
+        "categories": "Categories",
+        "settings": "Settings",
+        "reports": "Reports"
+    }
+}
