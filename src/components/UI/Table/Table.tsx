@@ -65,6 +65,8 @@ const CustomizedTable = (props: CustomizedTableProps) => {
     disableNextButton,
     showNextPage,
   } = useTableHook(props);
+  console.log("start" + startIndexTablePage);
+  console.log("end" + endIndexTablePage);
   const classes = useStyles();
   return (
     <Grid style={{ width: props.tableWidth }} className={classes.container}>
@@ -98,8 +100,11 @@ const CustomizedTable = (props: CustomizedTableProps) => {
         className={classes.control}
       >
         <Grid className={classes.controlRow}>
-          show {pageSize < props.rows.length ? pageSize : props.rows.length} of{" "}
-          {props.rows.length} entries
+          show{" "}
+          {endIndexTablePage > props.rows.length
+            ? props.rows.length - startIndexTablePage
+            : endIndexTablePage - startIndexTablePage}{" "}
+          of {props.rows.length} entries
           <Grid className={classes.buttons}>
             <Button
               className={classes.button}

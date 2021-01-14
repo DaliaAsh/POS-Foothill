@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useRef } from "react";
 import axios from "axios";
 const useSignUpPageHook = () => {
-  const [current, setCurrent] = useState(0);
+  const [current, setCurrent] = useState<number>(0);
+  const [serverMessage, setServerMessage] = useState<string>("error");
   const nameRef = useRef(null);
   const passwordRef = useRef(null);
   const emailRef = useRef(null);
@@ -43,13 +44,13 @@ const useSignUpPageHook = () => {
     return true;
   };
   const signUpUser = () => {
-    console.log("signup");
-    const formData = new FormData();
-    formData.append("name", nameRef.current.value);
-    formData.append("email", emailRef.current.value);
-    formData.append("password", passwordRef.current.value);
+    const formData = {
+      name: nameRef.current.value,
+      email: emailRef.current.value,
+      password: passwordRef.current.value,
+    };
     axios.post("/user", formData).then((result) => {
-      console.log(result);
+      console.log(result.data);
     });
   };
   const showErrorMessage = () => {};
@@ -60,6 +61,14 @@ const useSignUpPageHook = () => {
       showErrorMessage();
     }
   };
-  return { current, words, createNewAccount, nameRef, passwordRef, emailRef };
+  return {
+    current,
+    words,
+    createNewAccount,
+    nameRef,
+    passwordRef,
+    emailRef,
+    serverMessage,
+  };
 };
 export default useSignUpPageHook;

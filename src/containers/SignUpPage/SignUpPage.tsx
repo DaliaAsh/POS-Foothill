@@ -96,6 +96,7 @@ const SignUpPage = () => {
     nameRef,
     passwordRef,
     emailRef,
+    serverMessage,
   } = useSignUpPageHook();
   const classes = useStyles();
   return (
@@ -131,6 +132,7 @@ const SignUpPage = () => {
             <Grid className={classes.textFieldGrid}>
               <OutlinedInput
                 placeholder="E-mail"
+                type="email"
                 className={classes.textField}
                 inputProps={{ style: { fontFamily: "Potta One" } }}
                 inputRef={emailRef}
@@ -147,6 +149,7 @@ const SignUpPage = () => {
                 className={classes.textField}
                 inputProps={{ style: { fontFamily: "Potta One" } }}
                 inputRef={passwordRef}
+                type="password"
                 startAdornment={
                   <InputAdornment position="start">
                     <LockIcon />
