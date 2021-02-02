@@ -1,12 +1,10 @@
-import Category from "../Models/Category/Category";
-import Product from "../Models/Product/Product";
-import ProductOrderModel from "../Models/Product/ProductOrder";
-import Order from "../Models/Product/Order";
-import State from "../Models/PosState/PosState";
-import * as actionTypes from "./actions";
-interface FetchProductAction {
-  type: string;
-  products: ProductModel[];
+import Category from "../../Models/Category/Category";
+import Product from "../../Models/Product/Product";
+import ProductOrderModel from "../../Models/Product/ProductOrder";
+import Order from "../../Models/Product/Order";
+import * as actionTypes from "../actions/actionTypes";
+interface State {
+  productsOrders: ProductOrderModel[];
 }
 interface IncrementProductOrder {
   type: string;
@@ -24,12 +22,11 @@ interface ProductModel extends Product {
   _id: string;
 }
 type Action =
-  | FetchProductAction
   | IncrementProductOrder
   | DecrementProductOrder
   | DeleteProductOrder;
+
 const initialState: State = {
-  products: [],
   productsOrders: [],
 };
 const addNewProductOrder = (newOrder: Order, state: State) => {
@@ -100,9 +97,6 @@ const decrementProductOrder = (productOrderId: string, state: State) => {
 };
 const reducer = (state: State = initialState, action: Action) => {
   switch (action.type) {
-    case actionTypes.PUSH_PRODUCTS_BY_CATEGORY:
-      return { ...state, products: (action as FetchProductAction).products };
-      break;
     case actionTypes.INCREMENT_PRODUCT_ORDER:
       const newProductsOrdersAfterAdd = checkProductOrder(
         (action as IncrementProductOrder).newProductOrder,
@@ -126,7 +120,6 @@ const reducer = (state: State = initialState, action: Action) => {
       return { ...state, productsOrders: newProductsOrdersAfterDelete };
       break;
   }
-  console.log(state);
   return state;
 };
 

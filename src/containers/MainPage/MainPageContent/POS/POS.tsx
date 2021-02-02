@@ -9,8 +9,6 @@ import {
 } from "@material-ui/core";
 import Spinner from "../../../../components/UI/Spinner/Spinner";
 import { BreakPoints } from "../../../../Constants/BreakPoints/BreakPoints";
-import { createStore } from "redux";
-import rootReducer from "../../../../store/reducer";
 import PosPageContainer from "../../../../components/UI/PageContainer/PageContainer";
 import CategoriesTab from "../../../../components/PosProducts/CategoriesTab/CategoriesTab";
 import ProductsSearchBar from "../../../../components/PosProducts/ProductsSearchBar/ProductsSearchBar";
@@ -105,7 +103,7 @@ const Pos = (props) => {
           >
             <Paper className={classes.paper1}>
               <ClientHeader />
-              <SearchDropDownList />
+              <SearchDropDownList options={["daloa", "dah", "yeg"]} />
               <BarCodeScanner />
               <ProductsOrders />
             </Paper>

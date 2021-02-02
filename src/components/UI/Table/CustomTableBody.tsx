@@ -49,7 +49,7 @@ const CustomTableBody = (props: CustomTableBodyProps) => {
                     <TableCell
                       className={classes.tableCell}
                       align="left"
-                      key={`${row.productId}${columnName}`}
+                      key={`${row.id}${columnName}`}
                     >
                       {row[columnName]}
                     </TableCell>

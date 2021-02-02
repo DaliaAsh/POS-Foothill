@@ -6,18 +6,37 @@ import axios from "axios";
 import IconsAction from "../../../../components/UI/IconsAction/IconsAction";
 import Image from "material-ui-image";
 import ProductFields from "../../../../Models/Product/Product";
-import { Grid } from "@material-ui/core";
+import { FormHelperText, FormControl, Grid } from "@material-ui/core";
+import Category from "../../../../Models/Category/Category";
 interface ProductDetails {
   image: string;
   name: string;
 }
-const useProductHook = () => {
+interface ProductModel extends ProductFields {
+  _id: string;
+}
+interface CategoryModel extends Category {
+  _id: string;
+}
+interface ProductPageProps {
+  categories: CategoryModel[];
+  onInitCategories: () => void;
+  onAddProduct: (product: ProductFields, products: ProductFields[]) => void;
+  onInitProducts: () => void;
+  onDeleteProduct: (productId: number, products: ProductModel[]) => void;
+  products: ProductModel[];
+  loading: boolean;
+}
+const extractCategoriesNames = (categories: CategoryModel[]): string[] => {
+  return categories.map((category: CategoryModel) => {
+    return category.name;
+  });
+};
+
+const useProductHook = (props: ProductPageProps) => {
   const [dialogContent, setDialogContent] = useState<JSX.Element>();
   const [openDialog, setOpenDialog] = useState<boolean>(false);
   const [dialogTitle, setDialogTitle] = useState<string>("");
-  const [productRows, setProductRows] = useState<ProductRowModel[]>([]);
-  const [categories, setCategories] = useState<string[]>([]);
-  const [loading, setLoading] = useState(true);
   const [imageFile, setImageFile] = useState(null);
   const [pageSize, setPageSize] = useState<number>(2);
   const code = useRef(null);
@@ -32,77 +51,43 @@ const useProductHook = () => {
   const productDescription = useRef(null);
   const productUnit = useRef(null);
   const alertQuantity = useRef(null);
-  const [serverRequest, setServerRequest] = useState<boolean>(false);
+
   useEffect(() => {
-    let products: ProductRowModel[] = [];
-    axios
-      .get("product")
-      .then((result) => {
-        console.log(result.data.products);
-        result.data.products.map((productItem: ProductFields) => {
-          const actionIcons = (
-            <>
-              <IconActions.ClearAction
-                handleDeleteItemById={() => deleteProductById(productItem.id)}
-              />
-              <IconActions.EditAction
-                handleEditItemById={() => editProductById(productItem.id)}
-              />
-              <IconActions.ModifyStockAction
-                handleModifyStockItemById={() =>
-                  modifyProductBStockyId(productItem.id)
-                }
-              />
-              <IconActions.PrintBarCodeAction
-                handlePrintBarCodeItemById={() =>
-                  printBarCodeProductById(productItem.id)
-                }
-              />
-              <IconActions.ViewProductAction
-                handleViewProductItemById={() =>
-                  viewImageProductById(productItem.id)
-                }
-              />
-              <IconsAction.ViewImageAction
-                handleViewImageItemById={() =>
-                  getProductDetails(productItem.id)
-                }
-              />
-            </>
-          );
-          let product: ProductRowModel = {
-            productId: productItem.id,
-            name: productItem.name,
-            purchasePrice: productItem.rawPrice,
-            price: productItem.price,
-            code: productItem.code,
-            taxMethod: productItem.taxMethod,
-            category: productItem.category,
-            alertQuantity: productItem.alertQuantity,
-            productUnit: productItem.productUnit,
-            supplier: productItem.supplier,
-            action: actionIcons,
-            productDescription: productItem.productDescription,
-          };
-          products.push(product);
-        });
-      })
-      .then(() => {
-        setProductRows(products);
-        setLoading(false);
-      });
-    let categoriesNames = [];
-    axios
-      .get("category")
-      .then((result) => {
-        result.data.categories.map((category) => {
-          categoriesNames.push(category.name);
-        });
-      })
-      .then(() => {
-        setCategories(categoriesNames);
-      });
-  }, [serverRequest]);
+    props.onInitCategories();
+    props.onInitProducts();
+  }, []);
+  const transformProductsToProductsRowModel = (
+    products: ProductModel[]
+  ): ProductRowModel[] => {
+    let transformedProducts: ProductRowModel[] = [];
+    products.map((product: ProductModel) => {
+      const productDetails: ProductDetails = {
+        name: product.name,
+        image: `${axios.defaults.baseURL}${product.productImage}`,
+      };
+      const actionIcons = (
+        <>
+          <IconActions.ClearAction
+            handleDeleteItemById={() => {
+              props.onDeleteProduct(product.id, props.products);
+            }}
+          />
+          <IconActions.EditAction handleEditItemById={() => {}} />
+          <IconActions.ModifyStockAction handleModifyStockItemById={() => {}} />
+          <IconActions.PrintBarCodeAction
+            handlePrintBarCodeItemById={() => {}}
+          />
+          <IconsAction.ViewImageAction
+            handleViewImageItemById={() => openImageDialog(productDetails)}
+          />
+        </>
+      );
+      delete product._id;
+      const newProduct: ProductRowModel = { ...product, action: actionIcons };
+      transformedProducts.push(newProduct);
+    });
+    return transformedProducts;
+  };
   const handleOpenAddProductDialog = () => {
     configureDialogTitle("Add Product");
     configureDialogContent(
@@ -118,7 +103,7 @@ const useProductHook = () => {
         <Dialog.TextInput inputLabel="Name" inputValue={name} />
         <Dialog.SelectInput
           inputLabel="Category"
-          options={categories}
+          options={extractCategoriesNames(props.categories)}
           inputValue={category}
         />
         <Dialog.SelectInput
@@ -162,12 +147,12 @@ const useProductHook = () => {
     setOpenDialog(true);
   };
   const deleteProductById = (categoryId: number) => {
-    axios.delete(`product/${categoryId}`).then(() => {
+    /*   axios.delete(`product/${categoryId}`).then(() => {
       setServerRequest((oldRequest) => !oldRequest);
-    });
+    });*/
   };
   const getProductDetails = (productId: number): void => {
-    axios
+    /*   axios
       .get(`product/${productId}`)
       .then((result) => {
         const productDetails = {
@@ -179,7 +164,7 @@ const useProductHook = () => {
       .catch((error) => {
         console.log(error);
         return;
-      });
+      });*/
   };
   const openImageDialog = (productDetails: ProductDetails): void => {
     configureDialogTitle(productDetails.name);
@@ -213,42 +198,32 @@ const useProductHook = () => {
   const configureDialogContent = (content: JSX.Element) => {
     setDialogContent(content);
   };
-  const submitDialogHandler = () => {
-    const submittedProduct = new FormData();
-    submittedProduct.append("id", JSON.stringify(Date.now()));
-    submittedProduct.append("name", name.current.value);
-    submittedProduct.append("rawPrice", purchasePrice.current.value);
-    submittedProduct.append("price", price.current.value);
-    submittedProduct.append("code", code.current.value);
-    submittedProduct.append("supplier", supplier.current.value);
-    submittedProduct.append("category", category.current.value);
-    submittedProduct.append("productUnit", productUnit.current.value);
-    submittedProduct.append("taxMethod", taxMethod.current.value);
-    submittedProduct.append("alertQuantity", alertQuantity.current.value);
-    submittedProduct.append(
-      "productDescription",
-      productDescription.current.value
-    );
-    submittedProduct.append("productImage", imageFile);
-    axios
-      .post("product", submittedProduct)
-      .then((result) => {
-        console.log("dalia");
-        setServerRequest(!serverRequest);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  const submitDialogHandler = (event) => {
+    event.preventDefault();
+    const newProduct: ProductFields = {
+      id: Date.now(),
+      name: name.current.value,
+      rawPrice: Number(purchasePrice.current.value),
+      price: Number(price.current.value),
+      code: code.current.value,
+      supplier: supplier.current.value,
+      category: category.current.value,
+      productUnit: Number(productUnit.current.value),
+      taxMethod: taxMethod.current.value,
+      alertQuantity: Number(alertQuantity.current.value),
+      description: productDescription.current.value,
+      productImage: imageFile,
+    };
+    props.onAddProduct(newProduct, props.products);
   };
   return {
-    productRows,
     dialogContent,
     dialogTitle,
     openDialog,
-    loading,
     handleOpenAddProductDialog,
     closeDialogHandler,
     submitDialogHandler,
+    transformProductsToProductsRowModel,
   };
 };
 export default useProductHook;

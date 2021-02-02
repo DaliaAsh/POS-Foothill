@@ -1,13 +1,7 @@
-import React, { useState, useMemo } from "react";
-const useSearchDropDownListHook = () => {
+import React, { useState, useMemo, useEffect } from "react";
+const useSearchDropDownListHook = (props) => {
   const [openDropDownList, setOpenDropDownList] = useState<boolean>(false);
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [clientsNames, setClientsNames] = useState<string[]>([
-    "dalia",
-    "marah",
-    "heath",
-    "max",
-  ]);
   const [selectedClient, setSelectedClient] = useState<string>("");
   const toggleOpenDropDownList = () => {
     setOpenDropDownList((prevState) => !prevState);
@@ -21,10 +15,14 @@ const useSearchDropDownListHook = () => {
   };
   const filteredClients = useMemo(
     () =>
-      clientsNames.filter((clientName: string) => {
-        return clientName.toLowerCase().includes(searchQuery.toLowerCase());
+      props.options.filter((clientName: string | number) => {
+        if (typeof clientName === "string") {
+          return clientName.toLowerCase().includes(searchQuery.toLowerCase());
+        } else {
+          return clientName.toString().includes(searchQuery);
+        }
       }),
-    [clientsNames, searchQuery]
+    [props.options, searchQuery]
   );
   return {
     openDropDownList,

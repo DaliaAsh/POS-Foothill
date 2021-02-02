@@ -2,10 +2,10 @@ import React from "react";
 import CategoryTab from "./CategoryTab";
 import Spinner from "../../UI/Spinner/Spinner";
 import { connect } from "react-redux";
-import axios from "axios";
 import CategoryModel from "../../../Models/Category/Category";
 import Product from "../../../Models/Product/Product";
-import * as actionTypes from "../../../store/actions";
+import * as categoriesActions from "../../../store/actions/categories";
+import * as productsActions from "../../../store/actions/products";
 import { Grid, styled } from "@material-ui/core";
 interface Category extends CategoryModel {
   _id: string;
@@ -17,9 +17,19 @@ interface State {
   loading: boolean;
   categories: Category[];
   clickedId: number;
+  products: ProductModel[];
 }
 interface Props {
-  onFetchProductsByCategoryName: (products: ProductModel[]) => void;
+  loading: boolean;
+  categories: CategoryModel[];
+  products: ProductModel[];
+  onPushProductsByCategories: (
+    categoryName: string,
+    products: ProductModel[],
+    all: boolean
+  ) => void;
+  onInitCategories: () => void;
+  onInitProducts: () => void;
 }
 const CategoriesTabGrid = styled(Grid)({
   display: "flex",
@@ -40,46 +50,40 @@ const CategoriesTabGrid = styled(Grid)({
   },
 });
 class CategoriesTab extends React.Component<Props, State> {
-  state = {
-    loading: true,
-    categories: [],
-    clickedId: 0,
-  };
   componentDidMount() {
-    axios.get("/category").then((result) => {
-      this.setState({ loading: false, categories: result.data.categories });
-      console.log(result.data.categories);
-    });
+    this.props.onInitCategories();
+    this.props.onInitProducts();
   }
   render() {
-    if (this.state.loading) {
+    if (this.props.loading) {
       return <Spinner />;
     } else {
       return (
         <CategoriesTabGrid item>
-          {this.state.categories.map((category: Category) => {
+          <CategoryTab
+            key={Date.now()}
+            //    tabClicked={this.state.clickedId !== category.id ? false : true}
+            categoryName={"All"}
+            clickTabHandler={() => {
+              this.props.onPushProductsByCategories(
+                "",
+                this.props.products,
+                true
+              );
+            }}
+          />
+          {this.props.categories.map((category: Category) => {
             return (
               <CategoryTab
                 key={category.id}
-                tabClicked={this.state.clickedId !== category.id ? false : true}
+                //    tabClicked={this.state.clickedId !== category.id ? false : true}
                 categoryName={category.name}
                 clickTabHandler={() => {
-                  this.setState({ clickedId: category.id });
-                  let filteredProducts: ProductModel[] = [];
-                  axios
-                    .get("/product")
-                    .then((result) => {
-                      filteredProducts = result.data.products.filter(
-                        (product: ProductModel) => {
-                          return product.category === category.name;
-                        }
-                      );
-                    })
-                    .then(() => {
-                      this.props.onFetchProductsByCategoryName(
-                        filteredProducts
-                      );
-                    });
+                  this.props.onPushProductsByCategories(
+                    category.name,
+                    this.props.products,
+                    false
+                  );
                 }}
               />
             );
@@ -89,16 +93,28 @@ class CategoriesTab extends React.Component<Props, State> {
     }
   }
 }
+
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    loading: state.categories.loading,
+    categories: state.categories.categories,
+    products: state.products.products,
+  };
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    onFetchProductsByCategoryName: (products: ProductModel[]) =>
-      dispatch({
-        type: actionTypes.PUSH_PRODUCTS_BY_CATEGORY,
-        products: products,
-      }),
+    /*onFetchProductsByCategoryName: (products: ProductModel[]) =>
+      dispatch(),*/
+    onInitCategories: () => dispatch(categoriesActions.fetchCategories()),
+    onPushProductsByCategories: (
+      categoryName: string,
+      products: ProductModel[],
+      all: boolean
+    ) =>
+      dispatch(
+        productsActions.pushProductsByCategoryName(categoryName, products, all)
+      ),
+    onInitProducts: () => dispatch(productsActions.fetchProducts()),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(CategoriesTab);

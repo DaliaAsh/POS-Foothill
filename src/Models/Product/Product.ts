@@ -9,6 +9,6 @@ export default interface ProductFields {
     alertQuantity: number;
     productUnit: number;
     supplier: string;
-    productDescription: string;
+    description: string;
     productImage?: string;
 }

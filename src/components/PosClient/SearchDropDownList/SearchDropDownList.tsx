@@ -15,13 +15,18 @@ import {
 import ArrowDropUpIcon from "@material-ui/icons/ArrowDropUp";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import useSearchDropDownListHook from "./useSearchDropDownListHook";
+interface SearchDropDownListProps {
+  options: number[] | string[];
+  style?: Object;
+}
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
       width: "75%",
-      margin: "5% auto",
       backgroundColor: "white",
       position: "relative",
+      margin: "auto",
+      marginBottom: "2.5em",
     },
     dropDownList: {
       width: "100%",
@@ -68,7 +73,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
-const SearchDropDownList = (props) => {
+const SearchDropDownList = (props: SearchDropDownListProps) => {
   const {
     openDropDownList,
     toggleOpenDropDownList,
@@ -77,10 +82,14 @@ const SearchDropDownList = (props) => {
     filteredClients,
     selectedClient,
     selectClientName,
-  } = useSearchDropDownListHook();
-  const classes = useStyles(props.backgroundColor);
+  } = useSearchDropDownListHook(props);
+  const classes = useStyles();
   return (
-    <Grid container className={classes.root}>
+    <Grid
+      container
+      className={classes.root}
+      style={props.style ? props.style : null}
+    >
       <InputBase
         onClick={toggleOpenDropDownList}
         value={selectedClient}

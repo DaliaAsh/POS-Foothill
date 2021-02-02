@@ -1,5 +1,11 @@
 import React from "react";
-import { styled, DialogTitle, Dialog, DialogContent } from "@material-ui/core";
+import {
+  styled,
+  DialogTitle,
+  Dialog,
+  DialogContent,
+  FormHelperText,
+} from "@material-ui/core";
 import {
   InputLabel,
   Select,
@@ -75,7 +81,7 @@ interface FormDialogProps {
   children: JSX.Element | JSX.Element[];
   open: boolean;
   handleCloseDialog: () => void;
-  handleDialogSubmit: () => void;
+  handleDialogSubmit: (event) => void;
 }
 interface TextInputProps {
   inputLabel: string;

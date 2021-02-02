@@ -3,7 +3,7 @@ import { Paper, createStyles, makeStyles, Theme } from "@material-ui/core";
 interface CategoryTabProps {
   categoryName: string;
   clickTabHandler: () => void;
-  tabClicked: boolean;
+  // tabClicked: boolean;
 }
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -22,9 +22,13 @@ const useStyles = makeStyles((theme: Theme) =>
 const CategoryTab = (props: CategoryTabProps) => {
   const classes = useStyles();
   return (
-    <Paper
-      className={classes.tab}
-      style={
+    <Paper className={classes.tab} onClick={props.clickTabHandler}>
+      {props.categoryName}
+    </Paper>
+  );
+};
+export default CategoryTab;
+/**  style={
         props.tabClicked
           ? {
               color: "#e2e2e2",
@@ -36,11 +40,4 @@ const CategoryTab = (props: CategoryTabProps) => {
               color: "#7e6b6b",
               borderBottom: "3px solid green",
             }
-      }
-      onClick={props.clickTabHandler}
-    >
-      {props.categoryName}
-    </Paper>
-  );
-};
-export default CategoryTab;
+      } */

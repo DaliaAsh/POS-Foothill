@@ -8,7 +8,6 @@ import {
   MenuItem,
 } from "@material-ui/core";
 import Product from "../../../Models/Product/Product";
-import Order from "../../../Models/Product/Order";
 interface ProductItemProps {
   product: Product;
   productImageUrl: string;
@@ -17,51 +16,60 @@ interface ProductItemProps {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     card: {
-      width: "9em",
-      height: "9em",
-      margin: "1em",
-      backgroundRepeat: "no-repeat",
+      width: "12em",
+      height: "10em",
+      backgroundColor: "#555",
+      boxShadow: "0em 0em 0.5em 0.05em #ccc",
+      display: "flex",
+      flexDirection: "column",
+      position: "relative",
+      marginTop: "2em",
+      marginLeft: "2em",
+    },
+    imageGrid: {
       backgroundSize: "cover",
-      borderRadius: "0.5em",
-      backgroundPosition: "center",
-      opacity: "0.5",
+      width: "90%",
+      height: "90%",
+      margin: "auto",
+    },
+    productDetails: {
+      width: "60%",
+      height: "45%",
+      position: "absolute",
+      top: "60%",
+      zIndex: 1,
+      backgroundColor: "#fffe",
+      boxShadow: "0em 0em 0.5em 0.05em #bbb",
+      display: "flex",
+      flexDirection: "column",
       justifyContent: "center",
-      "&:hover": {
-        cursor: "pointer",
-        opacity: "1",
-        transition: "all 0.5s",
-        "& $childInformation": {
-          display: "block",
-          fontSize: "2em",
-          fontWeight: "bold",
-          textAlign: "center",
-          color: "#333",
-          padding: "1em",
-        },
-      },
+      alignContent: "center",
+      alignItems: "center",
     },
-    childInformation: {
-      display: "none",
-    },
+    productPrice: { fontWeight: "bold", fontSize: "1.5em" },
+    productName: {},
+    productDescription: {},
   })
 );
 const ProductItem = (props: ProductItemProps) => {
   console.log(props.productImageUrl);
   const classes = useStyles();
   return (
-    <MenuItem
-      onClick={props.addProductOrder}
-      style={{
-        backgroundImage: `url(${JSON.stringify(props.productImageUrl)}`,
-      }}
-      className={classes.card}
-    >
-      <Grid item className={classes.childInformation}>
-        <Grid> {props.product.name}</Grid>
-        <Grid> {props.product.price}$</Grid>
+    <MenuItem onClick={props.addProductOrder} className={classes.card}>
+      <Grid
+        className={classes.imageGrid}
+        style={{
+          backgroundImage: `url(${JSON.stringify(props.productImageUrl)}`,
+        }}
+      ></Grid>
+      <Grid className={classes.productDetails}>
+        <Grid className={classes.productPrice}>{props.product.price}$</Grid>
+        <Grid className={classes.productName}>{props.product.name}</Grid>
+        <Grid className={classes.productDescription}>
+          {props.product.description}
+        </Grid>
       </Grid>
     </MenuItem>
   );
 };
 export default ProductItem;
-/*   */

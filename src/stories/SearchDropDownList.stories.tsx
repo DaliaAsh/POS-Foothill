@@ -6,4 +6,6 @@ export default {
 };
 const Template = (args) => <SearchDropDownList {...args} />;
 export const MyClientPicker = Template.bind({});
-MyClientPicker.args = {};
+MyClientPicker.args = {
+  options: ["dalia", "moath"],
+};

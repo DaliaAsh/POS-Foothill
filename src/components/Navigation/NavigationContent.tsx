@@ -7,15 +7,20 @@ import POS from "../../containers/MainPage/MainPageContent/POS/POS";
 import Product from "../../containers/MainPage/MainPageContent/Product/Product";
 import Reports from "../../containers/MainPage/MainPageContent/Reports";
 import Sales from "../../containers/MainPage/MainPageContent/Sales";
-import Setting from "../../containers/MainPage/MainPageContent/Setting";
+import Setting from "../../containers/MainPage/MainPageContent/Setting/Setting";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
 import { BreakPoints } from "../../Constants/BreakPoints/BreakPoints";
+import { Switch } from "react-router-dom";
 import {
   Grid,
   createStyles,
   makeStyles,
   useMediaQuery,
 } from "@material-ui/core";
+import SettingsForm from "../Settings/SettingsForm/SettingsForm";
+import Users from "../Settings/Users/Users";
+import Stores from "../Settings/Stores/Stores";
+import WareHouses from "../Settings/WareHouses/WareHouses";
 const useStyles = makeStyles(() =>
   createStyles({
     root: {
@@ -27,10 +32,25 @@ const NavigationContent = () => {
   const classes = useStyles();
   return (
     <Grid className={classes.root}>
-      <PrivateRoute path="/main/product" component={Product} />
-      <PrivateRoute path="/main/pos" component={POS} />
-      <PrivateRoute path="/main/categories" component={Categories} />
-      <PrivateRoute path="/main/edit-category" component={Edit} />
+      <Switch>
+        <PrivateRoute path="/main/product" component={Product} exact />
+        <PrivateRoute path="/main/pos" component={POS} exact />
+        <PrivateRoute path="/main/categories" component={Categories} exact />
+        <PrivateRoute path="/main/edit-category" component={Edit} exact />
+        <PrivateRoute path="/main/setting" component={Setting} exact />
+        <PrivateRoute
+          path="/main/setting/settings"
+          component={SettingsForm}
+          exact
+        />
+        <PrivateRoute path="/main/setting/users" component={Users} exact />
+        <PrivateRoute path="/main/setting/stores" component={Stores} exact />
+        <PrivateRoute
+          path="/main/setting/warehouses"
+          component={WareHouses}
+          exact
+        />
+      </Switch>
     </Grid>
   );
 };

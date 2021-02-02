@@ -4,7 +4,7 @@ import ProductOrder from "./ProductOrder";
 import { connect } from "react-redux";
 import Order from "../../../Models/Product/Order";
 import ProductOrderModel from "../../../Models/Product/ProductOrder";
-import * as actionTypes from "../../../store/actions";
+import * as actionTypes from "../../../store/actions/actionTypes";
 interface State {}
 interface Props {
   productsOrders: ProductOrderModel[];
@@ -89,7 +89,7 @@ class ProductsList extends React.Component<Props, State> {
   }
 }
 const mapStateToProps = (state) => {
-  return { productsOrders: state.productsOrders };
+  return { productsOrders: state.orders.productsOrders };
 };
 const mapDispatchToProps = (dispatch) => {
   return {

@@ -10,12 +10,21 @@ import {
   Button,
   InputBase,
   OutlinedInput,
+  FormControl,
+  FormHelperText,
 } from "@material-ui/core";
 import { AnimateOnChange } from "react-animation";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import LockIcon from "@material-ui/icons/Lock";
+import { Formik, Form, FormikProps } from "formik";
+import * as Yup from "yup";
+interface ISignUpForm {
+  name: string;
+  email: string;
+  password: string;
+}
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     animatedSection: {
@@ -35,7 +44,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     signUpCard: {
       width: "30%",
-      height: "70%",
+      height: "70vh",
       margin: "auto",
       fontFamily: "Potta One",
       "@media (max-width:900px)": {
@@ -56,11 +65,11 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     textFieldGrid: {
       width: "80%",
-      marginTop: "5%",
+      marginTop: "3%",
     },
     buttonGrid: {
       width: "80%",
-      marginTop: "8%",
+      marginTop: "3%",
     },
     signUpButton: {
       fontFamily: "Potta One",
@@ -86,6 +95,9 @@ const useStyles = makeStyles((theme: Theme) =>
         flexDirection: "column",
       },
     },
+    error: {
+      color: "red",
+    },
   })
 );
 const SignUpPage = () => {
@@ -101,70 +113,128 @@ const SignUpPage = () => {
   const classes = useStyles();
   return (
     <Grid container>
-      <form
-        onSubmit={(event) => {
-          event.preventDefault();
-          createNewAccount();
-        }}
-        className={classes.form}
+      <Formik
+        initialValues={{ name: "", email: "", password: "" }}
+        onSubmit={(values: ISignUpForm, actions) => {}}
+        validationSchema={Yup.object().shape({
+          name: Yup.string().required("Name is Required"),
+          email: Yup.string().email().required("E-mail is Required"),
+          password: Yup.string().required("Password is Required"),
+        })}
       >
-        <Grid item className={classes.animatedSection}>
-          <span className={classes.animatedWords}>
-            <AnimateOnChange>{words[current]}</AnimateOnChange>
-          </span>
-        </Grid>
-        <Grid className={classes.signUpCard}>
-          <Paper className={classes.signUpPaper}>
-            <h1>Sign Up</h1>
-            <Grid className={classes.textFieldGrid}>
-              <OutlinedInput
-                placeholder="Name"
-                className={classes.textField}
-                inputProps={{ style: { fontFamily: "Potta One" } }}
-                inputRef={nameRef}
-                startAdornment={
-                  <InputAdornment position="start">
-                    <AccountCircleIcon />
-                  </InputAdornment>
-                }
-              />
-            </Grid>
-            <Grid className={classes.textFieldGrid}>
-              <OutlinedInput
-                placeholder="E-mail"
-                type="email"
-                className={classes.textField}
-                inputProps={{ style: { fontFamily: "Potta One" } }}
-                inputRef={emailRef}
-                startAdornment={
-                  <InputAdornment position="start">
-                    <MailOutlineIcon className={classes.lock} />
-                  </InputAdornment>
-                }
-              />
-            </Grid>
-            <Grid className={classes.textFieldGrid}>
-              <OutlinedInput
-                placeholder="Password"
-                className={classes.textField}
-                inputProps={{ style: { fontFamily: "Potta One" } }}
-                inputRef={passwordRef}
-                type="password"
-                startAdornment={
-                  <InputAdornment position="start">
-                    <LockIcon />
-                  </InputAdornment>
-                }
-              />
-            </Grid>
-            <Grid className={classes.buttonGrid}>
-              <Button className={classes.signUpButton} type="submit">
-                Sign Up
-              </Button>
-            </Grid>
-          </Paper>
-        </Grid>
-      </form>
+        {(props) => {
+          const { values, errors, touched, handleChange, handleBlur } = props;
+          return (
+            <form
+              onSubmit={(event) => {
+                event.preventDefault();
+                createNewAccount();
+              }}
+              className={classes.form}
+            >
+              <Grid item className={classes.animatedSection}>
+                <span className={classes.animatedWords}>
+                  <AnimateOnChange>{words[current]}</AnimateOnChange>
+                </span>
+              </Grid>
+              <Grid className={classes.signUpCard}>
+                <Paper className={classes.signUpPaper}>
+                  <h1>Sign Up</h1>
+                  <Grid className={classes.textFieldGrid}>
+                    <FormControl className={classes.textField}>
+                      <OutlinedInput
+                        placeholder="Name"
+                        inputProps={{ style: { fontFamily: "Potta One" } }}
+                        inputRef={nameRef}
+                        name="name"
+                        id="name"
+                        value={values.name}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        startAdornment={
+                          <InputAdornment position="start">
+                            <AccountCircleIcon />
+                          </InputAdornment>
+                        }
+                      />
+                      <FormHelperText>
+                        {errors.name ? (
+                          <span className={classes.error}>{errors.name}</span>
+                        ) : (
+                          "Please Enter Full Name"
+                        )}
+                      </FormHelperText>
+                    </FormControl>
+                  </Grid>
+                  <Grid className={classes.textFieldGrid}>
+                    <FormControl className={classes.textField}>
+                      <OutlinedInput
+                        placeholder="E-mail"
+                        type="email"
+                        name="email"
+                        id="email"
+                        inputProps={{ style: { fontFamily: "Potta One" } }}
+                        value={values.email}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        startAdornment={
+                          <InputAdornment position="start">
+                            <MailOutlineIcon className={classes.lock} />
+                          </InputAdornment>
+                        }
+                        error={errors.email && touched.email ? true : false}
+                      />
+                      <FormHelperText>
+                        {errors.email ? (
+                          <span className={classes.error}>{errors.email}</span>
+                        ) : (
+                          "Please Enter Your Email"
+                        )}
+                      </FormHelperText>
+                    </FormControl>
+                  </Grid>
+                  <Grid className={classes.textFieldGrid}>
+                    <FormControl className={classes.textField}>
+                      <OutlinedInput
+                        placeholder="Password"
+                        inputProps={{ style: { fontFamily: "Potta One" } }}
+                        name="password"
+                        type="password"
+                        id="password"
+                        value={values.password}
+                        onChange={handleChange}
+                        onBlur={handleBlur}
+                        error={
+                          errors.password && touched.password ? true : false
+                        }
+                        startAdornment={
+                          <InputAdornment position="start">
+                            <LockIcon />
+                          </InputAdornment>
+                        }
+                      />
+                      <FormHelperText>
+                        {errors.password ? (
+                          <span className={classes.error}>
+                            {errors.password}
+                          </span>
+                        ) : (
+                          "Please Enter Password"
+                        )}
+                      </FormHelperText>
+                    </FormControl>
+                  </Grid>
+                  <Grid className={classes.buttonGrid}>
+                    <Button className={classes.signUpButton} type="submit">
+                      Sign Up
+                    </Button>
+                  </Grid>
+                </Paper>
+              </Grid>
+            </form>
+          );
+        }}
+      </Formik>
     </Grid>
   );
 };

@@ -1,13 +1,13 @@
 export interface ProductRowModel {
-    productId: number;
+    id: number;
     code: string;
     name: string;
     category: string;
-    productDescription: string;
+    description: string;
     tax?: number;
     taxMethod: string;
+    rawPrice: number;
     price: number;
-    purchasePrice: number;
     productUnit: number;
     alertQuantity: number;
     action: JSX.Element;
