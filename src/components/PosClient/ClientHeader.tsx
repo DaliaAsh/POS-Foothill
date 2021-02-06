@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
       fontWeight: 700,
       color: "#344963",
       marginLeft: "-6%",
-      fontFamily: "Calibri",
+      fontFamily: "'Montserrat',sans-serif",
     },
     iconButton: {
       backgroundColor: "#a1b1bc",

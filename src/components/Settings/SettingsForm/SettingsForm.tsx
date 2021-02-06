@@ -10,6 +10,7 @@ import {
 import SearchDropDownList from "../../PosClient/SearchDropDownList/SearchDropDownList";
 import SubmitButton from "../../UI/AddButton/AddButton";
 import lightThemeImage from "../../../assets/images/login.jpg";
+import SettingsOptions from "../SettingsOptions/SettingsOptions";
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
@@ -183,150 +184,153 @@ const SettingsForm = () => {
   const classes = useStyles();
   console.dir(textAreaRef);
   return (
-    <div className={classes.container}>
-      <div className={classes.header}>Settings</div>
-      <div className={classes.subHeader}>Update your Settings</div>
-      <form className={classes.formContainer}>
-        <div className={classes.inputForm}>
-          <span className={classes.inputLabel}>Company Name</span>
-          <InputBase
-            className={classes.input}
-            inputProps={{ style: { height: "0.1em" } }}
-            classes={{ focused: classes.inputFocused }}
-          />
-        </div>
-        <div className={classes.inputForm}>
-          <span className={classes.inputLabel}>Company Logo</span>
-          <div className={classes.inputFile}>
-            {" "}
-            <input type="file" />
-          </div>
-        </div>
-        <div className={classes.inputForm}>
-          <span className={classes.inputLabel}>Company Phone</span>
-          <InputBase
-            className={classes.input}
-            inputProps={{ style: { height: "0.1em" } }}
-            classes={{ focused: classes.inputFocused }}
-          />
-        </div>
-        <div className={classes.inputForm}>
-          <span className={classes.inputLabel}>Currency Code</span>
-          <InputBase
-            className={classes.input}
-            inputProps={{ style: { height: "0.1em" } }}
-            classes={{ focused: classes.inputFocused }}
-          />
-        </div>
-        <div className={classes.discountTaxContainer}>
-          <div className={classes.discount}>
-            <span className={classes.inputLabel}>Default Discount</span>
+    <>
+      <SettingsOptions />
+      <div className={classes.container}>
+        <div className={classes.header}>Settings</div>
+        <div className={classes.subHeader}>Update your Settings</div>
+        <form className={classes.formContainer}>
+          <div className={classes.inputForm}>
+            <span className={classes.inputLabel}>Company Name</span>
             <InputBase
               className={classes.input}
               inputProps={{ style: { height: "0.1em" } }}
               classes={{ focused: classes.inputFocused }}
             />
           </div>
+          <div className={classes.inputForm}>
+            <span className={classes.inputLabel}>Company Logo</span>
+            <div className={classes.inputFile}>
+              {" "}
+              <input type="file" />
+            </div>
+          </div>
+          <div className={classes.inputForm}>
+            <span className={classes.inputLabel}>Company Phone</span>
+            <InputBase
+              className={classes.input}
+              inputProps={{ style: { height: "0.1em" } }}
+              classes={{ focused: classes.inputFocused }}
+            />
+          </div>
+          <div className={classes.inputForm}>
+            <span className={classes.inputLabel}>Currency Code</span>
+            <InputBase
+              className={classes.input}
+              inputProps={{ style: { height: "0.1em" } }}
+              classes={{ focused: classes.inputFocused }}
+            />
+          </div>
+          <div className={classes.discountTaxContainer}>
+            <div className={classes.discount}>
+              <span className={classes.inputLabel}>Default Discount</span>
+              <InputBase
+                className={classes.input}
+                inputProps={{ style: { height: "0.1em" } }}
+                classes={{ focused: classes.inputFocused }}
+              />
+            </div>
 
-          <div className={classes.tax}>
-            <span className={classes.inputLabel}>Default Tax</span>
-            <InputBase
-              className={classes.input}
-              inputProps={{ style: { height: "0.1em" } }}
-              classes={{ focused: classes.inputFocused }}
-            />
+            <div className={classes.tax}>
+              <span className={classes.inputLabel}>Default Tax</span>
+              <InputBase
+                className={classes.input}
+                inputProps={{ style: { height: "0.1em" } }}
+                classes={{ focused: classes.inputFocused }}
+              />
+            </div>
           </div>
-        </div>
-        <div className={classes.list}>
-          <span className={classes.inputLabel}>
-            Number of Decimal (Rounding)
-          </span>
-          <div className={classes.listInput}>
-            <SearchDropDownList
-              options={[0.1, 0.01, 0.001]}
-              style={{ width: "100%" }}
-            />
+          <div className={classes.list}>
+            <span className={classes.inputLabel}>
+              Number of Decimal (Rounding)
+            </span>
+            <div className={classes.listInput}>
+              <SearchDropDownList
+                options={[0.1, 0.01, 0.001]}
+                style={{ width: "100%" }}
+              />
+            </div>
           </div>
-        </div>
-        <div className={classes.checkBoxInput}>
-          <Checkbox color="primary" />
-          <span className={classes.inputLabel}>Display Virtual Keyboard</span>
-        </div>
-        <div className={classes.list}>
-          <div className={classes.listInput}>
-            <SearchDropDownList
-              options={["palestine timezone"]}
-              style={{ width: "100%" }}
-            />
+          <div className={classes.checkBoxInput}>
+            <Checkbox color="primary" />
+            <span className={classes.inputLabel}>Display Virtual Keyboard</span>
           </div>
-        </div>
-        <div className={classes.inputForm}>
-          <span className={classes.textAreaLabel}>
-            Text in the Receipt Header
-          </span>
-          <TextareaAutosize
-            ref={textAreaRef}
-            contextMenu=""
-            className={classes.input}
-            style={{ height: "10em" }}
-          />
-        </div>
-        <div className={classes.inputForm}>
-          <span className={classes.textAreaLabel}>
-            Text in the Receipt Footer
-          </span>
-          <TextareaAutosize
-            ref={textAreaRef}
-            contextMenu=""
-            className={classes.input}
-            style={{ height: "10em" }}
-          />
-        </div>
-        <div className={classes.checkBoxInput}>
-          <Checkbox color="primary" />
-          <span className={classes.inputLabel}>Stripe</span>
-        </div>
-        <div className={classes.keysContainer}>
+          <div className={classes.list}>
+            <div className={classes.listInput}>
+              <SearchDropDownList
+                options={["palestine timezone"]}
+                style={{ width: "100%" }}
+              />
+            </div>
+          </div>
           <div className={classes.inputForm}>
-            <span className={classes.inputLabel}>Stripe Secret Key</span>
-            <InputBase
+            <span className={classes.textAreaLabel}>
+              Text in the Receipt Header
+            </span>
+            <TextareaAutosize
+              ref={textAreaRef}
+              contextMenu=""
               className={classes.input}
-              inputProps={{ style: { height: "0.1em" } }}
-              classes={{ focused: classes.inputFocused }}
+              style={{ height: "10em" }}
             />
           </div>
           <div className={classes.inputForm}>
-            <span className={classes.inputLabel}>Strip Publishable Key</span>
-            <InputBase
+            <span className={classes.textAreaLabel}>
+              Text in the Receipt Footer
+            </span>
+            <TextareaAutosize
+              ref={textAreaRef}
+              contextMenu=""
               className={classes.input}
-              inputProps={{ style: { height: "0.1em" } }}
-              classes={{ focused: classes.inputFocused }}
+              style={{ height: "10em" }}
             />
           </div>
-        </div>
-        <div className={classes.themeInputs}>
-          <span className={classes.themeLabel}>Pick Your Theme</span>
-          <div className={classes.themesContainer}>
-            <div className={[classes.themeImage, classes.input].join(" ")}>
-              <span className={classes.themeText}>Light Theme</span>
+          <div className={classes.checkBoxInput}>
+            <Checkbox color="primary" />
+            <span className={classes.inputLabel}>Stripe</span>
+          </div>
+          <div className={classes.keysContainer}>
+            <div className={classes.inputForm}>
+              <span className={classes.inputLabel}>Stripe Secret Key</span>
+              <InputBase
+                className={classes.input}
+                inputProps={{ style: { height: "0.1em" } }}
+                classes={{ focused: classes.inputFocused }}
+              />
             </div>
-            <div className={[classes.themeImage, classes.input].join(" ")}>
-              <span className={classes.themeText}>Dark Theme</span>
+            <div className={classes.inputForm}>
+              <span className={classes.inputLabel}>Strip Publishable Key</span>
+              <InputBase
+                className={classes.input}
+                inputProps={{ style: { height: "0.1em" } }}
+                classes={{ focused: classes.inputFocused }}
+              />
             </div>
           </div>
-        </div>
-        <div className={classes.inputForm}>
-          {" "}
-          <SubmitButton
-            backgroundColor="#34495e"
-            onClick={() => {}}
-            marginLeft="0"
-          >
-            Submit
-          </SubmitButton>
-        </div>
-      </form>
-    </div>
+          <div className={classes.themeInputs}>
+            <span className={classes.themeLabel}>Pick Your Theme</span>
+            <div className={classes.themesContainer}>
+              <div className={[classes.themeImage, classes.input].join(" ")}>
+                <span className={classes.themeText}>Light Theme</span>
+              </div>
+              <div className={[classes.themeImage, classes.input].join(" ")}>
+                <span className={classes.themeText}>Dark Theme</span>
+              </div>
+            </div>
+          </div>
+          <div className={classes.inputForm}>
+            {" "}
+            <SubmitButton
+              backgroundColor="#34495e"
+              onClick={() => {}}
+              marginLeft="0"
+            >
+              Submit
+            </SubmitButton>
+          </div>
+        </form>
+      </div>
+    </>
   );
 };
 export default SettingsForm;

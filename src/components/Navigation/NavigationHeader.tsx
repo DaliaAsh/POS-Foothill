@@ -150,9 +150,9 @@ const NavigationHeader = (props) => {
           <BookmarkIcon fontSize="small" htmlColor="999" />
           <StyledNavLink to="/main/categories">Categories</StyledNavLink>
         </ListItem>
-        <ListItem onClick={() => navigateToPage("setting")}>
+        <ListItem onClick={() => navigateToPage("setting/settings")}>
           <SettingsIcon fontSize="small" htmlColor="999" />
-          <StyledNavLink to="/main/setting">Setting</StyledNavLink>
+          <StyledNavLink to="/main/setting/settings">Setting</StyledNavLink>
         </ListItem>
         <ListItem onClick={() => navigateToPage("reports")}>
           <AssessmentIcon fontSize="small" htmlColor="999" />

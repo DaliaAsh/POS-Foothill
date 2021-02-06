@@ -1,19 +1,16 @@
 import React, { useEffect, Suspense, useState } from "react";
 import LogIn from "../../components/LogIn/LogIn";
 import { styled } from "@material-ui/styles";
-import LogInBackground from "../../assets/images/login.jpg";
-import Slide from "@material-ui/core/Slide";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 import Paper from "@material-ui/core/Paper";
 import Spinner from "../../components/UI/Spinner/Spinner";
 import { BreakPoints } from "../../Constants/BreakPoints/BreakPoints";
+import { Grid } from "@material-ui/core";
 
-const LogInPageLayout = styled("div")({
+const LogInPageLayout = styled(Grid)({
   width: "100%",
   height: "100vh",
-  backgroundImage: `url(${LogInBackground})`,
-  backgroundRepeat: "no-repeat",
-  backgroundSize: "cover",
+  backgroundColor: "white",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
@@ -50,17 +47,9 @@ const LogInPage = (props) => {
         <Spinner />
       ) : (
         <LogInPageLayout>
-          <Slide
-            direction="down"
-            timeout={1000}
-            in={!loading}
-            mountOnEnter
-            unmountOnExit
-          >
-            <CustomPaper>
-              <LogIn onSubmitForm={submitFormHandler} />
-            </CustomPaper>
-          </Slide>
+          <CustomPaper>
+            <LogIn onSubmitForm={submitFormHandler} />
+          </CustomPaper>
         </LogInPageLayout>
       )}
     </Suspense>

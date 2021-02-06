@@ -50,6 +50,12 @@ const CategoriesTabGrid = styled(Grid)({
   },
 });
 class CategoriesTab extends React.Component<Props, State> {
+  state = {
+    loading: false,
+    categories: [],
+    clickedId: 0,
+    products: [],
+  };
   componentDidMount() {
     this.props.onInitCategories();
     this.props.onInitProducts();
@@ -61,22 +67,25 @@ class CategoriesTab extends React.Component<Props, State> {
       return (
         <CategoriesTabGrid item>
           <CategoryTab
+            color="#7e6b6b"
             key={Date.now()}
-            //    tabClicked={this.state.clickedId !== category.id ? false : true}
-            categoryName={"All"}
+            tabClicked={this.state.clickedId === 0 ? true : false}
+            categoryName="All"
             clickTabHandler={() => {
               this.props.onPushProductsByCategories(
                 "",
                 this.props.products,
                 true
               );
+              this.setState({ clickedId: 0 });
             }}
           />
           {this.props.categories.map((category: Category) => {
             return (
               <CategoryTab
+                color="#7e6b6b"
                 key={category.id}
-                //    tabClicked={this.state.clickedId !== category.id ? false : true}
+                tabClicked={this.state.clickedId !== category.id ? false : true}
                 categoryName={category.name}
                 clickTabHandler={() => {
                   this.props.onPushProductsByCategories(
@@ -84,6 +93,7 @@ class CategoriesTab extends React.Component<Props, State> {
                     this.props.products,
                     false
                   );
+                  this.setState({ clickedId: category.id });
                 }}
               />
             );

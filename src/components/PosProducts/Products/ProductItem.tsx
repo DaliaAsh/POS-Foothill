@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     card: {
       width: "12em",
-      height: "10em",
+      height: "12em",
       backgroundColor: "#555",
       boxShadow: "0em 0em 0.5em 0.05em #ccc",
       display: "flex",
@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme: Theme) =>
       width: "60%",
       height: "45%",
       position: "absolute",
-      top: "60%",
+      top: "50%",
       zIndex: 1,
       backgroundColor: "#fffe",
       boxShadow: "0em 0em 0.5em 0.05em #bbb",

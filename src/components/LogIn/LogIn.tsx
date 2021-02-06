@@ -10,6 +10,7 @@ import {
 import CopyrightIcon from "@material-ui/icons/Copyright";
 import WarningHelperText from "../UI/WarningHelperText/WarningHelperText";
 import useLogInHook from "./useLogInHook";
+import Black from "../../assets/Logo/splat.png";
 interface logInProps {
   onSubmitForm: (userName: string, password: string) => void;
 }
@@ -26,7 +27,7 @@ const TextMainSpan = styled("span")({
 });
 const TextSecondarySpan = styled("span")({
   fontSize: "1.6em",
-  color: "#333",
+  color: "#ffffff",
   fontWeight: "normal",
 });
 const InputField = styled(OutlinedInput)({
@@ -49,6 +50,7 @@ const CopyrightContainer = styled(Grid)({
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
+  color: "white",
 });
 const LanguageSpan = styled("span")({
   margin: "1em",
@@ -57,11 +59,11 @@ const LanguageSpan = styled("span")({
   color: "rgb(9, 113, 241)",
   "&:hover": {
     cursor: "pointer",
-    color: "black",
+    color: "white",
   },
 });
 const CreateAccountSpan = styled("span")({
-  color: "#333",
+  color: "#ffffff",
   fontWeight: "bold",
   opacity: "0.5",
   "&:hover": {
@@ -88,7 +90,7 @@ const LogIn = (props: logInProps) => {
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
-    backgroundColor: "rgb(236, 238, 240)",
+    backgroundColor: "black",
     justifyContent: "center",
     padding: "1em",
     textAlign: "center",
@@ -99,7 +101,17 @@ const LogIn = (props: logInProps) => {
   return (
     <LogInCard>
       <MainHeader>
-        <TextMainSpan>{t("login.title")}</TextMainSpan>
+        <Grid
+          style={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+          }}
+        >
+          <TextMainSpan>{t("login.title")}</TextMainSpan>
+          <img width="80" height="80" src={Black} />
+        </Grid>
+
         <br />
         <TextSecondarySpan>{t("login.subtitle")}</TextSecondarySpan>
       </MainHeader>

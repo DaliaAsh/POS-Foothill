@@ -8,6 +8,8 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import ordersReducer from "./store/reducers/orders";
 import productsReducer from "./store/reducers/products";
 import categoriesReducer from "./store/reducers/categories";
+import storesReducer from "./store/reducers/stores";
+import usersReducer from "./store/reducers/users";
 import { BrowserRouter } from "react-router-dom";
 import { I18nextProvider } from "react-i18next";
 import i18next from "i18next";
@@ -20,6 +22,8 @@ const rootReducer = combineReducers({
   categories: categoriesReducer,
   orders: ordersReducer,
   products: productsReducer,
+  users: usersReducer,
+  stores: storesReducer,
 });
 const composeEnhancers =
   (window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

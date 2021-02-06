@@ -3,8 +3,11 @@ import {
   styled,
   DialogTitle,
   Dialog,
-  DialogContent,
-  FormHelperText,
+  FormControl,
+  FormControlLabel,
+  Radio,
+  RadioGroup,
+  FormLabel,
 } from "@material-ui/core";
 import {
   InputLabel,
@@ -76,6 +79,15 @@ const CustomizedIconButton = styled(IconButton)({
 const CustomizedDialogContent = styled("form")({
   padding: "2em",
 });
+const CustomRadioGroup = styled(RadioGroup)({
+  width: "80%",
+  marginLeft: "10%",
+  display: "flex",
+  flexDirection: "row",
+});
+const CustomFormControlLabel = styled(FormControlLabel)({
+  textTransform: "none",
+});
 interface FormDialogProps {
   title: string;
   children: JSX.Element | JSX.Element[];
@@ -100,6 +112,12 @@ interface ButtonsProps {
 }
 interface ImageProps {
   handleUploadImage: (event) => void;
+}
+interface RadioProps {
+  inputLabel: string;
+  options: string[];
+  inputValue: string;
+  handleOptionChange: (event) => void;
 }
 class FormDialog extends React.Component<FormDialogProps> {
   static SelectInput = ({
@@ -165,6 +183,30 @@ class FormDialog extends React.Component<FormDialogProps> {
       <CloseButton onClick={handleDialogClose}>Close</CloseButton>
       <SubmitButton type="submit">Submit</SubmitButton>
     </CustomizedButtonsContainer>
+  );
+  static RadioInput = ({
+    inputLabel,
+    options,
+    inputValue,
+    handleOptionChange,
+  }: RadioProps) => (
+    <InputContainer>
+      <CustomizedInputLabel>{inputLabel}</CustomizedInputLabel>
+      <CustomRadioGroup
+        value={inputValue}
+        onChange={(event) => handleOptionChange(event)}
+      >
+        {options.map((option: string) => {
+          return (
+            <CustomFormControlLabel
+              value={option}
+              control={<Radio />}
+              label={option}
+            />
+          );
+        })}
+      </CustomRadioGroup>
+    </InputContainer>
   );
   render() {
     return (

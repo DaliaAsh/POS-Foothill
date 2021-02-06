@@ -4,13 +4,8 @@ import GroupIcon from "@material-ui/icons/Group";
 import LocalGroceryStoreIcon from "@material-ui/icons/LocalGroceryStore";
 import HomeWorkIcon from "@material-ui/icons/HomeWork";
 import { withRouter, Link } from "react-router-dom";
-import {
-  MenuItem,
-  List,
-  makeStyles,
-  createStyles,
-  Divider,
-} from "@material-ui/core";
+import useSettingsOptions from "./useSettingsOptions";
+import { MenuItem, List, makeStyles, createStyles } from "@material-ui/core";
 const useStyles = makeStyles(() =>
   createStyles({
     options: {
@@ -31,17 +26,14 @@ const useStyles = makeStyles(() =>
   })
 );
 const SettingsOptions = (props) => {
+  const { checked, navigateToOption } = useSettingsOptions(props);
   const classes = useStyles();
-  const [checked, setChecked] = useState<number>(0);
-  useEffect(() => {
-    setChecked(0);
-  }, []);
   return (
     <List className={classes.options}>
       <MenuItem
         className={classes.option}
         onClick={() => {
-          setChecked(0);
+          navigateToOption("settings", 0);
         }}
         style={
           checked === 0
@@ -50,12 +42,12 @@ const SettingsOptions = (props) => {
         }
       >
         <SettingsIcon fontSize="small" htmlColor="999" />
-        <Link to="/main/setting/settings">Settings</Link>
+        <span>Settings</span>
       </MenuItem>
       <MenuItem
         className={classes.option}
         onClick={() => {
-          setChecked(1);
+          navigateToOption("users", 1);
         }}
         style={
           checked === 1
@@ -69,7 +61,7 @@ const SettingsOptions = (props) => {
       <MenuItem
         className={classes.option}
         onClick={() => {
-          setChecked(2);
+          navigateToOption("stores", 2);
         }}
         style={
           checked === 2
@@ -80,20 +72,7 @@ const SettingsOptions = (props) => {
         <LocalGroceryStoreIcon fontSize="small" htmlColor="999" />
         <span>Stores</span>
       </MenuItem>
-      <MenuItem
-        className={classes.option}
-        onClick={() => {
-          setChecked(3);
-        }}
-        style={
-          checked === 3
-            ? { color: "#1877f2", borderBottom: "2px solid #1877f2" }
-            : null
-        }
-      >
-        <HomeWorkIcon fontSize="small" htmlColor="999" />
-        <span>Warehouses</span>
-      </MenuItem>{" "}
+
       <div
         style={{
           borderBottom: "1px solid #777",

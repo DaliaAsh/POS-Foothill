@@ -24,6 +24,7 @@ const LabelSpan = styled("span")({
   fontWeight: "bold",
   fontSize: "1em",
   marginLeft: "10%",
+  fontFamily: "'Montserrat',sans-serif",
 });
 const LabelsHeader = styled(Grid)({
   marginTop: "4%",

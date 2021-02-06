@@ -20,7 +20,6 @@ import {
 import SettingsForm from "../Settings/SettingsForm/SettingsForm";
 import Users from "../Settings/Users/Users";
 import Stores from "../Settings/Stores/Stores";
-import WareHouses from "../Settings/WareHouses/WareHouses";
 const useStyles = makeStyles(() =>
   createStyles({
     root: {
@@ -45,11 +44,6 @@ const NavigationContent = () => {
         />
         <PrivateRoute path="/main/setting/users" component={Users} exact />
         <PrivateRoute path="/main/setting/stores" component={Stores} exact />
-        <PrivateRoute
-          path="/main/setting/warehouses"
-          component={WareHouses}
-          exact
-        />
       </Switch>
     </Grid>
   );
