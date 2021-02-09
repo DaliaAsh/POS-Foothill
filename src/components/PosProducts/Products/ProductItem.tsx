@@ -18,8 +18,7 @@ const useStyles = makeStyles((theme: Theme) =>
     card: {
       width: "12em",
       height: "12em",
-      backgroundColor: "#555",
-      boxShadow: "0em 0em 0.5em 0.05em #ccc",
+      backgroundColor: "#33b2e5",
       display: "flex",
       flexDirection: "column",
       position: "relative",

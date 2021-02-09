@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Grid, makeStyles, createStyles } from "@material-ui/core";
 import PhoneAndroidIcon from "@material-ui/icons/PhoneAndroid";
 import PublicIcon from "@material-ui/icons/Public";
 import MailIcon from "@material-ui/icons/Mail";
+import useOnScreen from "../../CustomHooks/useOnScreen";
 const useStyles = makeStyles(() =>
   createStyles({
     root: {
@@ -26,7 +27,7 @@ const useStyles = makeStyles(() =>
       fontWeight: 400,
       textTransform: "uppercase",
       marginBottom: "5%",
-      borderBottom: "1px solid white",
+      borderBottom: "3px solid #33b2e5",
       paddingBottom: "1em",
     },
     aboutParagraph: {
@@ -60,13 +61,37 @@ const useStyles = makeStyles(() =>
     icon: {
       marginRight: "5%",
     },
+    "@keyframes fadeIn": {
+      from: {
+        opacity: "0",
+        transform: "translateY(-40%)",
+      },
+      to: {
+        opacity: "1",
+        transform: "translateY(0)",
+      },
+    },
+    animation: {
+      animation: "1s $fadeIn",
+    },
   })
 );
 const FooterSection = () => {
+  const footerRef = useRef(null);
+  const isFooterVisible = useOnScreen(footerRef);
+  const copyrightRef = useRef(null);
+  const isCopyrightVisible = useOnScreen(copyrightRef);
   const classes = useStyles();
   return (
     <Grid className={classes.root}>
-      <Grid className={classes.footerContent}>
+      <Grid
+        className={
+          isFooterVisible
+            ? [classes.footerContent, classes.animation].join(" ")
+            : classes.footerContent
+        }
+        innerRef={footerRef}
+      >
         <Grid className={classes.block}>
           <Grid className={classes.footerHeader}>About Us</Grid>
           <Grid className={classes.aboutParagraph}>
@@ -101,7 +126,14 @@ const FooterSection = () => {
         </Grid>
       </Grid>
 
-      <Grid className={classes.copyRight}>
+      <Grid
+        className={
+          isCopyrightVisible
+            ? [classes.copyRight, classes.animation].join(" ")
+            : classes.copyRight
+        }
+        innerRef={copyrightRef}
+      >
         Copyright {new Date().getFullYear()} Dalia Ashayer
       </Grid>
     </Grid>

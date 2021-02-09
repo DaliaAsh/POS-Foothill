@@ -23,21 +23,19 @@ interface ProductOrderProps {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
-      width: "75%",
+      width: "100%",
       height: "5em",
     },
     productOrder: {
       width: "100%",
       height: "50%",
-      marginLeft: "12%",
     },
     productOrderPaper: {
       width: "100%",
       height: "100%",
-      flexDirection: "row",
       display: "flex",
+      justifyContent: "space-around",
       marginTop: "5%",
-      padding: theme.spacing(0.5),
       alignItems: "center",
     },
     cancelIcon: {
@@ -48,15 +46,12 @@ const useStyles = makeStyles((theme: Theme) =>
       },
     },
     productName: {},
-    productPrice: {
-      marginLeft: "15%",
-    },
+    productPrice: {},
     productQuantity: {
-      marginLeft: "5%",
       display: "flex",
       alignItems: "center",
     },
-    productTotal: { marginLeft: "10%" },
+    productTotal: {},
   })
 );
 const ProductOrder = (props: ProductOrderProps) => {
@@ -65,12 +60,12 @@ const ProductOrder = (props: ProductOrderProps) => {
     <Grid className={classes.container}>
       <Grid className={classes.productOrder} item>
         <Paper className={classes.productOrderPaper}>
-          <Grid>
+          <Grid className={classes.productName}>
             <IconButton onClick={props.onDeleteOrderHandler}>
               <CancelIcon className={classes.cancelIcon} />
             </IconButton>
+            {props.productName}
           </Grid>
-          <Grid className={classes.productName}>{props.productName}</Grid>
           <Grid className={classes.productPrice}>{props.price}</Grid>
           <Grid className={classes.productQuantity}>
             <IconButton onClick={props.onDecrementProductOrder}>

@@ -7,8 +7,9 @@ import CategoryPageContainer from "../../../../components/UI/PageContainer/PageC
 import Spinner from "../../../../components/UI/Spinner/Spinner";
 import * as categoriesActions from "../../../../store/actions/categories";
 import { connect } from "react-redux";
-import Category from "../../../../Models/Category/Category";
+import { makeStyles, createStyles } from "@material-ui/core";
 import { History } from "history";
+import Category from "../../../../Models/Category/Category";
 interface CategoryModel extends Category {
   _id: string;
 }
@@ -20,7 +21,17 @@ interface CategoriesProps {
   categories: CategoryModel[];
   loading: boolean;
 }
+const useStyles = makeStyles(() =>
+  createStyles({
+    header: {
+      color: "#33b2e5",
+      marginLeft: "15%",
+      marginBottom: "-2%",
+    },
+  })
+);
 const Categories = (props: CategoriesProps) => {
+  const classes = useStyles();
   const {
     dialogTitle,
     dialogContent,
@@ -45,6 +56,7 @@ const Categories = (props: CategoriesProps) => {
         >
           {dialogContent}
         </Dialog>
+        <h1 className={classes.header}>Categories</h1>
         <Table
           rows={transformCategoriesToCategoriesRows(props.categories)}
           columnNames={categoriesColumnNames}

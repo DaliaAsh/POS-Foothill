@@ -2,6 +2,7 @@ import Category from "../../Models/Category/Category";
 import Product from "../../Models/Product/Product";
 import ProductOrderModel from "../../Models/Product/ProductOrder";
 import Order from "../../Models/Product/Order";
+import { updateObject } from "../utility";
 import * as actionTypes from "../actions/actionTypes";
 interface State {
   productsOrders: ProductOrderModel[];
@@ -33,7 +34,6 @@ const addNewProductOrder = (newOrder: Order, state: State) => {
   const newProductOrder: ProductOrderModel = {
     ...newOrder,
     quantity: 1,
-    total: 1,
     id: `${Date.now()}${newOrder.productName}`,
   };
   return state.productsOrders.concat(newProductOrder);
@@ -49,7 +49,6 @@ const updateIncrementProductOrder = (existOrder: Order, state: State) => {
     productName: oldProductOrder.productName,
     price: oldProductOrder.price,
     quantity: oldProductOrder.quantity + 1,
-    total: oldProductOrder.total + oldProductOrder.price,
     id: oldProductOrder.id,
   };
   const updatedOrdersArray = [...state.productsOrders];
@@ -88,7 +87,6 @@ const decrementProductOrder = (productOrderId: string, state: State) => {
     productName: oldProductOrder.productName,
     price: oldProductOrder.price,
     quantity: oldProductOrder.quantity - 1,
-    total: oldProductOrder.total + oldProductOrder.price,
     id: oldProductOrder.id,
   };
   const updatedOrdersArray = [...state.productsOrders];
@@ -119,6 +117,8 @@ const reducer = (state: State = initialState, action: Action) => {
       );
       return { ...state, productsOrders: newProductsOrdersAfterDelete };
       break;
+    case actionTypes.CLEAR_ORDERS:
+      return updateObject(state, { productsOrders: [] });
   }
   return state;
 };

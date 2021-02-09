@@ -10,37 +10,23 @@ import { Grid } from "@material-ui/core";
 const LogInPageLayout = styled(Grid)({
   width: "100%",
   height: "100vh",
-  backgroundColor: "white",
+  backgroundColor: "#ffffff",
   display: "flex",
   justifyContent: "center",
   alignItems: "center",
   transition: "all .5s ease-in-out",
 });
 
-const LogInPage = (props) => {
+const LogInPage = () => {
   const mobileOrientation = useMediaQuery(`(max-width:${BreakPoints.SM})`);
   const CustomPaper = styled(Paper)({
     width: mobileOrientation ? "100%" : "40%",
     height: mobileOrientation ? "100%" : "30em",
   });
   useEffect(() => {
-    let isAuth = false;
-    const auth = localStorage.getItem("pos-auth");
-    if (auth) {
-      const authObject = JSON.parse(auth);
-      isAuth = authObject.isAuth;
-      props.history.push("/main");
-    } else {
-      isAuth = false;
-      setLoading(false);
-    }
+    setLoading(false);
   }, []);
   const [loading, setLoading] = useState(true);
-  const submitFormHandler = (userName: string, password: string) => {
-    const auth = { isAuth: true, userName: userName, password: password };
-    localStorage.setItem("pos-auth", JSON.stringify(auth));
-    props.history.push("/main");
-  };
   return (
     <Suspense fallback="loading">
       {loading ? (
@@ -48,11 +34,12 @@ const LogInPage = (props) => {
       ) : (
         <LogInPageLayout>
           <CustomPaper>
-            <LogIn onSubmitForm={submitFormHandler} />
+            <LogIn />
           </CustomPaper>
         </LogInPageLayout>
       )}
     </Suspense>
   );
 };
+
 export default LogInPage;

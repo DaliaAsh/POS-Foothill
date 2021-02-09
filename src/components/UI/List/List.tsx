@@ -8,6 +8,8 @@ interface ListProps {
 const SelectList = styled(Select)({
   width: "5em",
   height: "2em",
+  color: "white",
+  backgroundColor: "#33b2e5",
 });
 const List = (props: ListProps) => {
   return (

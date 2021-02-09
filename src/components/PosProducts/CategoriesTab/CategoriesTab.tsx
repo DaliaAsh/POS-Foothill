@@ -42,11 +42,11 @@ const CategoriesTabGrid = styled(Grid)({
     borderRadius: "10px",
   },
   "&::-webkit-scrollbar-thumb": {
-    background: "#777",
+    background: "#33b2e5",
     borderRadius: "10px",
   },
   "&::-webkit-scrollbar-thumb:hover": {
-    background: "#444 ",
+    background: "#fff ",
   },
 });
 class CategoriesTab extends React.Component<Props, State> {
@@ -72,12 +72,12 @@ class CategoriesTab extends React.Component<Props, State> {
             tabClicked={this.state.clickedId === 0 ? true : false}
             categoryName="All"
             clickTabHandler={() => {
+              this.setState({ clickedId: 0 });
               this.props.onPushProductsByCategories(
                 "",
                 this.props.products,
                 true
               );
-              this.setState({ clickedId: 0 });
             }}
           />
           {this.props.categories.map((category: Category) => {

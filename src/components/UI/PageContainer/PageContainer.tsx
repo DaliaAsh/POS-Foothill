@@ -4,6 +4,8 @@ const Container = styled("div")({
   width: "100%",
   display: "flex",
   flexDirection: "column",
+  backgroundColor: "black",
+  overflowX: "hidden",
 });
 
 const PageContainer = (props: { children: JSX.Element[] | JSX.Element }) => (

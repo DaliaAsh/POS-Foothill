@@ -1,14 +1,14 @@
-import React from "react";
+import React, { useRef } from "react";
 import { Grid, makeStyles, createStyles } from "@material-ui/core";
 import mobile from "../../assets/images/mobile.jpg";
 import { withRouter } from "react-router-dom";
+import useOnScreen from "../../CustomHooks/useOnScreen";
 const useStyles = makeStyles(() =>
   createStyles({
     root: {
       width: "100%",
       height: "100vh",
       backgroundColor: "black",
-      borderBottom: "1px solid white",
       display: "flex",
       flexDirection: "column",
     },
@@ -42,17 +42,46 @@ const useStyles = makeStyles(() =>
       flexDirection: "column",
       alignItems: "center",
     },
+    animation: {
+      animation: "1s $slideIn",
+    },
+    "@keyframes slideIn": {
+      "0%": {
+        transform: "translateY(80%)",
+        opacity: "0",
+      },
+      "100%": {
+        transform: "translateY(0)",
+        opacity: "1",
+      },
+    },
   })
 );
 const PromotingSection = (props) => {
   const classes = useStyles();
+  const promotingRef = useRef(null);
+  const isPromotingVisible = useOnScreen(promotingRef);
   const navigateToSignUpPage = () => {
     props.history.push("/sign-up");
   };
   return (
-    <Grid className={classes.root}>
-      <h1 className={classes.header}>Ready to Launch</h1>
-      <Grid className={classes.container}>
+    <Grid className={classes.root} innerRef={promotingRef}>
+      <h1
+        className={
+          isPromotingVisible
+            ? [classes.header, classes.animation].join(" ")
+            : classes.header
+        }
+      >
+        Ready to Launch
+      </h1>
+      <Grid
+        className={
+          isPromotingVisible
+            ? [classes.container, classes.animation].join(" ")
+            : classes.container
+        }
+      >
         <div
           className={classes.getStartedButton}
           onClick={navigateToSignUpPage}

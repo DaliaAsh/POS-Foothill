@@ -10,7 +10,7 @@ interface AddButtonProps {
 const AddButton = (props: AddButtonProps) => {
   const StyledButton = styled(Button)({
     textTransform: "unset",
-    backgroundColor: "#555",
+    backgroundColor: "#33b2e5",
     color: "white",
     alignSelf: "flex-start",
     marginLeft: props.marginLeft,

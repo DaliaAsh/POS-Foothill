@@ -22,8 +22,8 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     clientText: {
       fontSize: "2em",
-      fontWeight: 700,
-      color: "#344963",
+      fontWeight: 900,
+      color: "#33b2e5",
       marginLeft: "-6%",
       fontFamily: "'Montserrat',sans-serif",
     },
@@ -38,7 +38,10 @@ const useStyles = makeStyles((theme: Theme) =>
     },
   })
 );
-const ClientHeader = () => {
+interface ClientHeaderProps {
+  openAddUserDialog: () => void;
+}
+const ClientHeader = (props: ClientHeaderProps) => {
   const classes = useStyles();
   return (
     <Grid container className={classes.headerContainer}>
@@ -52,7 +55,10 @@ const ClientHeader = () => {
           </Tooltip>
         </IconButton>
 
-        <IconButton className={classes.iconButton}>
+        <IconButton
+          className={classes.iconButton}
+          onClick={props.openAddUserDialog}
+        >
           <Tooltip title="Add new customer" placement="top">
             <PersonAddIcon />
           </Tooltip>

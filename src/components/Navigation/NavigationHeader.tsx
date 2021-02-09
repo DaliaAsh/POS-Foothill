@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Logo from "../../assets/Logo/logo.png";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { withRouter } from "react-router-dom";
 import { styled, useMediaQuery, MenuItem, IconButton } from "@material-ui/core";
@@ -15,6 +14,7 @@ import LocalMallIcon from "@material-ui/icons/LocalMall";
 import BookmarkIcon from "@material-ui/icons/Bookmark";
 import SettingsIcon from "@material-ui/icons/Settings";
 import AssessmentIcon from "@material-ui/icons/Assessment";
+import BlueImage from "../../assets/Logo/splat.png";
 import { NavLink } from "react-router-dom";
 import { useHistory } from "react-router-dom";
 const NavigationHeader = (props) => {
@@ -56,10 +56,11 @@ const NavigationHeader = (props) => {
     display: "flex",
     flexDirection: "row",
     paddingTop: "1em",
-    boxShadow: " 0 8px 6px -6px #ccc",
-    backgroundColor: "#f8f8f8",
+    backgroundColor: "black",
     alignItems: "center",
     flexWrap: "wrap",
+    borderBottom: "5px solid #33b2e5",
+    height: "4em",
   });
   const Account = tabletOrientation
     ? styled("div")({
@@ -96,26 +97,20 @@ const NavigationHeader = (props) => {
         alignContent: "center",
         borderBottom: "1px solid #eee",
         width: "100%",
-        color: "#777",
+        color: "#33b2e5",
       })
     : styled(MenuItem)({
         display: "flex",
         alignContent: "center",
-        color: "#777",
-        "&:hover": {
-          color: "black",
-        },
+        color: "#33b2e5",
       });
   const StyledNavLink = styled(NavLink)({
     textDecoration: "none",
-    color: "#777",
-    "&:hover": {
-      color: "black",
-    },
+    color: "#33b2e5",
     fontSize: "12px",
   });
   const handleLogOut = () => {
-    localStorage.removeItem("pos-auth");
+    localStorage.removeItem("isUserAuthorized");
     history.push("/login");
   };
   const navigateToPage = (pageName: string) => {
@@ -123,7 +118,7 @@ const NavigationHeader = (props) => {
   };
   return (
     <Navigation>
-      <LogoImage src={Logo} />
+      <LogoImage src={BlueImage} />
       <List>
         <ListItem onClick={() => navigateToPage("pos")}>
           <CategoryIcon fontSize="small" />
@@ -141,10 +136,10 @@ const NavigationHeader = (props) => {
           <LocalMallIcon fontSize="small" htmlColor="999" />
           <StyledNavLink to="/main/sales">Sales</StyledNavLink>
         </ListItem>
-        <ListItem onClick={() => navigateToPage("expense")}>
+        <ListItem onClick={() => navigateToPage("checkouts")}>
           <AttachMoneyIcon fontSize="small" htmlColor="999" />
 
-          <StyledNavLink to="/main/expense">Expense</StyledNavLink>
+          <StyledNavLink to="/main/checkouts">Checkouts</StyledNavLink>
         </ListItem>
         <ListItem onClick={() => navigateToPage("categories")}>
           <BookmarkIcon fontSize="small" htmlColor="999" />
@@ -161,7 +156,7 @@ const NavigationHeader = (props) => {
       </List>
       <Account>
         <IconButton onClick={handleLogOut}>
-          <LogOutIcon fontSize="small" htmlColor="999" />
+          <LogOutIcon fontSize="small" htmlColor="#33b2e5" />
         </IconButton>
       </Account>
       {tabletOrientation ? (

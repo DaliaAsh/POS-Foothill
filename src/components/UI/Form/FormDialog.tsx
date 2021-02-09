@@ -22,7 +22,7 @@ import CloseIcon from "@material-ui/icons/Close";
 const SubmitButton = styled(Button)({
   marginBottom: "1em",
   textTransform: "unset",
-  backgroundColor: "#555",
+  backgroundColor: "#33b2e5",
   color: "white",
 });
 const CloseButton = styled(Button)({
@@ -67,7 +67,7 @@ const CustomizedButtonsContainer = styled("div")({
   justifyContent: "space-between",
 });
 const CustomizedDialogTitle = styled(DialogTitle)({
-  backgroundColor: "#555",
+  backgroundColor: "#33b2e5",
   color: "white",
   position: "relative",
 });
@@ -216,6 +216,7 @@ class FormDialog extends React.Component<FormDialogProps> {
         open={this.props.open}
         TransitionComponent={Slide}
         transitionDuration={1000}
+        onClose={this.props.handleCloseDialog}
       >
         <CustomizedDialogTitle>
           <div>{this.props.title}</div>

@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { withRouter } from "react-router-dom";
 import { Grid, createStyles, makeStyles, IconButton } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import CloseIcon from "@material-ui/icons/Close";
-import LandingImage from "../../assets/images/landing.jpg";
 import MenuIcon from "@material-ui/icons/Menu";
 import SplatImage from "../../assets/Logo/splat.png";
+import useOnScreen from "../../CustomHooks/useOnScreen";
 const useStyles = makeStyles(() =>
   createStyles({
     root: {
@@ -60,7 +60,6 @@ const useStyles = makeStyles(() =>
       animation: "1s $slideIn",
     },
     closeModal: {
-      animation: "1s $slideOut",
       opacity: "0",
     },
     modal: {
@@ -172,10 +171,57 @@ const useStyles = makeStyles(() =>
         display: "inline",
       },
     },
+    animation: {
+      animation: "1s $fadeIn",
+    },
+    "@keyframes fadeIn": {
+      from: {
+        opacity: "0",
+        transform: "translateY(-40%)",
+      },
+      to: {
+        opacity: "1",
+        transform: "translateY(0)",
+      },
+    },
+    buttonAnimation: {
+      animation: "1s $slidesInY",
+    },
+    "@keyframes slidesInY": {
+      from: {
+        transform: "translateY(40%)",
+      },
+      to: {
+        transform: "translateY(0)",
+      },
+    },
+    itemInHeader: {
+      "&:hover": {
+        cursor: "pointer",
+      },
+    },
+    logInItem: {
+      "&:hover": {
+        color: "#33b2e5",
+        cursor: "pointer",
+      },
+    },
+    getStartedColor: {
+      "&:hover": {
+        color: "#33b2e5",
+        cursor: "pointer",
+      },
+    },
   })
 );
 const LandingSection = (props) => {
   const [modalOpen, setModelOpen] = useState<boolean>(false);
+  const mainHeaderRef = useRef(null);
+  const subHeaderRef = useRef(null);
+  const buttonRef = useRef(null);
+  const isMainHeaderVisible = useOnScreen(mainHeaderRef);
+  const isSubHeaderVisible = useOnScreen(subHeaderRef);
+  const isButtonVisible = useOnScreen(buttonRef);
   console.log(modalOpen);
   const classes = useStyles();
   const openModalHandler = () => {
@@ -200,19 +246,28 @@ const LandingSection = (props) => {
         <img src={SplatImage} width="70" height="50" className={classes.logo} />
         <nav className={classes.navigation}>
           <ul className={classes.modalList}>
-            <Grid className={classes.modalItem}>
+            <Grid
+              className={[classes.modalItem, classes.itemInHeader].join(" ")}
+            >
               Products
               <ExpandMoreIcon className={classes.expandIcon} />
             </Grid>
-            <Grid className={classes.modalItem}>
+            <Grid
+              className={[classes.modalItem, classes.itemInHeader].join(" ")}
+            >
               Categories
               <ExpandMoreIcon className={classes.expandIcon} />
             </Grid>
-            <Grid className={classes.modalItem}>
+            <Grid
+              className={[classes.modalItem, classes.itemInHeader].join(" ")}
+            >
               Users
               <ExpandMoreIcon className={classes.expandIcon} />
             </Grid>
-            <Grid className={classes.modalItem} onClick={navigateToSignInPage}>
+            <Grid
+              className={[classes.modalItem, classes.logInItem].join(" ")}
+              onClick={navigateToSignInPage}
+            >
               Log In
             </Grid>
           </ul>
@@ -221,14 +276,39 @@ const LandingSection = (props) => {
           <MenuIcon fontSize="large" />
         </IconButton>
       </Grid>
-      <Grid item className={classes.heading}>
-        <h2 className={classes.subHeading}>Manage your POS</h2>
-        <h1 className={classes.mainHeading}>
+      <Grid
+        item
+        className={classes.heading}
+        style={modalOpen ? { zIndex: 0 } : { zIndex: 200 }}
+      >
+        <h2
+          className={
+            isSubHeaderVisible
+              ? [classes.subHeading, classes.animation].join(" ")
+              : classes.subHeading
+          }
+          ref={mainHeaderRef}
+        >
+          Manage your POS
+        </h2>
+        <h1
+          className={
+            isMainHeaderVisible
+              ? [classes.mainHeading, classes.animation].join(" ")
+              : classes.mainHeading
+          }
+          ref={subHeaderRef}
+        >
           The Leader in Point Of Sales Data
         </h1>
         <div
-          className={classes.getStartedButton}
+          className={
+            isButtonVisible
+              ? [classes.getStartedButton, classes.buttonAnimation].join(" ")
+              : classes.getStartedButton
+          }
           onClick={navigateToSignUpPage}
+          ref={buttonRef}
         >
           Get Started
         </div>
@@ -260,7 +340,12 @@ const LandingSection = (props) => {
         <div className={classes.logIn} onClick={navigateToSignInPage}>
           Log In
         </div>
-        <Grid className={classes.getStarted}>Get Started</Grid>
+        <Grid
+          className={[classes.getStarted, classes.getStartedColor].join(" ")}
+          onClick={navigateToSignUpPage}
+        >
+          Get Started
+        </Grid>
       </Grid>
     </Grid>
   );

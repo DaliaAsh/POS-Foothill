@@ -40,17 +40,20 @@ const useStyles = makeStyles((theme: Theme) =>
       display: "flex",
       width: "100%",
       alignItems: "center",
+      color: "#33b2e5",
+      fontWeight: 800,
     },
     button: {
       color: "white",
       fontWeight: 600,
-      backgroundColor: "#555",
+      backgroundColor: "#33b2e5",
       margin: "2%",
       paddingRight: "0.8em",
       paddingLeft: "0.8em",
     },
     select: {
       marginBottom: "2%",
+      color: "#33b2e5",
     },
   })
 );

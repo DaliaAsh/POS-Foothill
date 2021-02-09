@@ -3,6 +3,7 @@ import User from "../../Models/User";
 import { updateObject } from "../utility";
 interface State {
   users: User[];
+  loadingUsers: boolean;
 }
 interface Action {
   type: string;
@@ -10,6 +11,7 @@ interface Action {
 }
 const initialState: State = {
   users: [],
+  loadingUsers: true,
 };
 const reducer = (state = initialState, action: Action) => {
   switch (action.type) {
@@ -18,7 +20,7 @@ const reducer = (state = initialState, action: Action) => {
     }
 
     case actionTypes.FETCH_USERS: {
-      return updateObject(state, { users: action.users });
+      return updateObject(state, { users: action.users, loadingUsers: false });
     }
     default:
       return state;

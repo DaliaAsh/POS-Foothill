@@ -1,28 +1,52 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import Spinner from "../../../components/UI/Spinner/Spinner";
-const People = (props) => {
+import * as usersActions from "../../../store/actions/users";
+import { Grid, createStyles, makeStyles } from "@material-ui/core";
+import { connect } from "react-redux";
+import UserCard from "../../../components/UI/UserCard";
+import User from "../../../Models/User";
+const useStyles = makeStyles(() =>
+  createStyles({
+    root: {
+      width: "100%",
+      height: "120vh",
+      backgroundColor: `rgb(3,4,5)`,
+      display: "flex",
+      flexWrap: "wrap",
+      overflow: "auto",
+    },
+  })
+);
+interface PeopleProps {
+  loadingUsers: boolean;
+  onInitUsers: () => void;
+  users: User[];
+}
+const People = (props: PeopleProps) => {
   useEffect(() => {
-    setLoading(false);
+    props.onInitUsers();
   }, []);
-  const [loading, setLoading] = useState(true);
-  if (loading) {
+  const classes = useStyles();
+  if (props.loadingUsers) {
     return <Spinner />;
   }
   return (
-    <div style={{ width: "100%", height: "100vh" }}>
-      <svg
-        width="763"
-        height="1024"
-        viewBox="0 0 763 1024"
-        fill="none"
-        xmlns="http://www.w3.org/2000/svg"
-      >
-        <g
-          d="M0 0H739.902C739.902 0 567.912 176.5 571.832 285.5C575.752 394.5 631.612 383.5 739.902 518C848.193 652.5 540.472 657 541.942 773C543.412 889 739.902 1024 739.902 1024H0V0Z"
-          fill="#3983F3"
-        />
-      </svg>
-    </div>
+    <Grid className={classes.root}>
+      {props.users.map((user: User) => {
+        return <UserCard user={user} key={user.userId} />;
+      })}
+    </Grid>
   );
 };
-export default People;
+const mapStateToProps = (state) => {
+  return {
+    users: state.users.users,
+    loadingUsers: state.users.loadingUsers,
+  };
+};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onInitUsers: () => dispatch(usersActions.fetchUsers()),
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(People);

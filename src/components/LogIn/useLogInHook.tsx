@@ -1,8 +1,10 @@
 import { useRef, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useHistory } from "react-router-dom";
+import SignInAuth from "../../Models/SignInAuth";
+
 interface useLogInHookProps {
-  onSubmitForm: (userName: string, password: string) => void;
+  onSignInAdmin: (authData: SignInAuth) => any;
 }
 const useLogInHook = (props: useLogInHookProps) => {
   const [t, i18n] = useTranslation("common");
@@ -37,12 +39,25 @@ const useLogInHook = (props: useLogInHookProps) => {
       setNameError("");
     }
   };
-  const validateFormHandler = () => {
+  const validateFormHandler = (event) => {
+    event.preventDefault();
     if (nameError !== "" || passwordError !== "") {
       return;
     }
+    const signInAuth: SignInAuth = {
+      name: userName.current.value,
+      password: password.current.value,
+    };
+    props.onSignInAdmin(signInAuth).then(() => {
+      const isAuthorized = localStorage.getItem("isUserAuthorized");
+      if (isAuthorized) {
+        const isAuth: boolean = JSON.parse(isAuthorized);
+        if (isAuth) {
+          history.push("/main/pos");
+        }
+      }
+    });
 
-    props.onSubmitForm(userName.current.value, password.current.value);
     clearAllTextFields();
   };
   const clearAllTextFields = () => {

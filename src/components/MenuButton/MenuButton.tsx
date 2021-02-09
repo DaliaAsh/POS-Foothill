@@ -4,9 +4,9 @@ import IconButton from "@material-ui/core/IconButton";
 interface MenuButtonProps {
   toggleMenuList: () => void;
 }
-const MenuButton = (props:MenuButtonProps) => (
+const MenuButton = (props: MenuButtonProps) => (
   <IconButton onClick={props.toggleMenuList}>
-    <MenuIcon />
+    <MenuIcon htmlColor="#33b2e5" />
   </IconButton>
 );
 export default MenuButton;

@@ -11,8 +11,12 @@ import CopyrightIcon from "@material-ui/icons/Copyright";
 import WarningHelperText from "../UI/WarningHelperText/WarningHelperText";
 import useLogInHook from "./useLogInHook";
 import Black from "../../assets/Logo/splat.png";
+import { connect } from "react-redux";
+import SignInAuth from "../../Models/SignInAuth";
+import * as authActions from "../../store/actions/auth";
+
 interface logInProps {
-  onSubmitForm: (userName: string, password: string) => void;
+  onSignInAdmin: (authData: SignInAuth) => any;
 }
 const MainHeader = styled(Grid)({
   margin: "auto",
@@ -39,6 +43,10 @@ const LogInButton = styled(Button)({
   backgroundColor: "rgb(9, 113, 241)",
   color: "white",
   marginBottom: "1em",
+  "&:hover": {
+    backgroundColor: "rgb(9, 113, 241)",
+    color: "white",
+  },
 });
 const FormContainer = styled("form")({
   width: "80%",
@@ -117,8 +125,7 @@ const LogIn = (props: logInProps) => {
       </MainHeader>
       <FormContainer
         onSubmit={(event) => {
-          event.preventDefault();
-          validateFormHandler();
+          validateFormHandler(event);
         }}
       >
         <FormControl>
@@ -156,4 +163,11 @@ const LogIn = (props: logInProps) => {
     </LogInCard>
   );
 };
-export default LogIn;
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onSignInAdmin: (authData: SignInAuth) =>
+      dispatch(authActions.signInAdmin(authData)),
+  };
+};
+export default connect(null, mapDispatchToProps)(LogIn);
