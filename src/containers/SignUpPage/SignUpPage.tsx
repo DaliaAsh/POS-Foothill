@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme: Theme) =>
       height: "100vh",
       display: "flex",
       flexDirection: "row",
-      overflow: "hidden",
+      overflowX: "hidden",
     },
     promotingSection: {
       backgroundColor: "black",

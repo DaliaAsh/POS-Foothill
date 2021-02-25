@@ -21,6 +21,7 @@ export const ADD_STORE = "ADD_STORE";
 export const FETCH_STORES = "FETCH_STORES";
 
 export const ADD_CHECKOUT = "ADD_CHECKOUT";
+export const FETCH_CHECKOUTS = "FETCH_CHECKOUTS";
 
 export const SIGN_UP_ADMIN = "SIGN_UP_ADMIN";
 export const SIGN_IN_ADMIN = "SIGN_IN_ADMIN";

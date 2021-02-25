@@ -71,7 +71,7 @@ export const setCategories = (categories: CategoryModel[]) => {
 };
 export const fetchCategories = () => {
   return (dispatch) => {
-    axios.get("category").then((result) => {
+    return axios.get("category").then((result) => {
       dispatch(setCategories(result.data.categories));
     });
   };

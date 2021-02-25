@@ -6,7 +6,7 @@ export const setUsers = (users: User[]) => {
 };
 export const fetchUsers = () => {
   return (dispatch) => {
-    axios.get("user").then((result) => {
+    return axios.get("user").then((result) => {
       console.log(result.data.users);
       dispatch(setUsers(result.data.users));
     });

@@ -198,6 +198,7 @@ const useStyles = makeStyles(() =>
     itemInHeader: {
       "&:hover": {
         cursor: "pointer",
+        color: "#33b2e5",
       },
     },
     logInItem: {
@@ -236,6 +237,9 @@ const LandingSection = (props) => {
   const navigateToSignInPage = () => {
     props.history.push("/sign-in");
   };
+  const navigateToPage = (pageName: string) => {
+    props.history.push(pageName);
+  };
   return (
     <Grid className={classes.root} container>
       <Grid
@@ -248,18 +252,21 @@ const LandingSection = (props) => {
           <ul className={classes.modalList}>
             <Grid
               className={[classes.modalItem, classes.itemInHeader].join(" ")}
+              onClick={() => navigateToPage("products")}
             >
               Products
               <ExpandMoreIcon className={classes.expandIcon} />
             </Grid>
             <Grid
               className={[classes.modalItem, classes.itemInHeader].join(" ")}
+              onClick={() => navigateToPage("categories")}
             >
               Categories
               <ExpandMoreIcon className={classes.expandIcon} />
             </Grid>
             <Grid
               className={[classes.modalItem, classes.itemInHeader].join(" ")}
+              onClick={() => navigateToPage("users")}
             >
               Users
               <ExpandMoreIcon className={classes.expandIcon} />

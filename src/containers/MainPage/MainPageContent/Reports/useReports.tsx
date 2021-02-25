@@ -38,7 +38,6 @@ const useReports = (props: ReportsProps) => {
         console.log(props.categories);
         console.log(props.products);
         console.log(props.users);
-        setWait(false);
         props.categories.map((category: CategoryModel) => {
           initialData.push({
             categoryName: category.name,
@@ -57,6 +56,7 @@ const useReports = (props: ReportsProps) => {
             productsNumber: item.productsNumber + 1,
           });
         });
+        setWait(false);
       })
       .then(() => {
         setData(initialData);

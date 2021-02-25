@@ -100,7 +100,6 @@ const LogIn = (props: logInProps) => {
     alignItems: "center",
     backgroundColor: "black",
     justifyContent: "center",
-    padding: "1em",
     textAlign: "center",
     direction: direction,
     width: "100%",

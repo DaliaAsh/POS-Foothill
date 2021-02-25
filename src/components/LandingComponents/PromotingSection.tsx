@@ -47,7 +47,7 @@ const useStyles = makeStyles(() =>
     },
     "@keyframes slideIn": {
       "0%": {
-        transform: "translateY(80%)",
+        transform: "translateY(50%)",
         opacity: "0",
       },
       "100%": {

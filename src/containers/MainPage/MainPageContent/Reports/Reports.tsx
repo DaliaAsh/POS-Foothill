@@ -87,6 +87,9 @@ const useStyles = makeStyles(() =>
     chartContainer: {
       display: "flex",
       flexDirection: "row-reverse",
+      "@media (max-width:680px)": {
+        flexDirection: "column",
+      },
     },
     productsHeader: {
       color: "#f06695",
@@ -149,17 +152,6 @@ const Reports = (props: ReportsProps) => {
               </Chart>
             ) : null}
           </Grid>
-        </Grid>
-
-        <Grid className={classes.products}>
-          <Grid className={classes.productsHeader}>
-            3 Most Demanded Products
-          </Grid>
-          <ul className={classes.productsList}>
-            <li>d</li>
-            <li>a</li>
-            <li>l</li>
-          </ul>
         </Grid>
       </Grid>
     </ReportsPageContainer>

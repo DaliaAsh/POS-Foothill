@@ -27,9 +27,8 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     imageGrid: {
       backgroundSize: "cover",
-      width: "90%",
-      height: "90%",
-      margin: "auto",
+      width: "100%",
+      height: "100%",
     },
     productDetails: {
       width: "60%",

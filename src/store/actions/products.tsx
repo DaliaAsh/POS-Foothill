@@ -51,7 +51,7 @@ export const setProducts = (products) => {
 };
 export const fetchProducts = () => {
   return (dispatch) => {
-    axios.get("/product").then((result) => {
+    return axios.get("/product").then((result) => {
       console.log(result.data);
       dispatch(setProducts(result.data.products));
     });

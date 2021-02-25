@@ -1,7 +1,7 @@
 import React from "react";
 import Categories from "../../containers/MainPage/MainPageContent/Categories/Categories";
 import Edit from "../../containers/MainPage/MainPageContent/Edit";
-import Expense from "../../containers/MainPage/MainPageContent/Expense";
+import Checkouts from "../../containers/MainPage/MainPageContent/Checkouts";
 import People from "../../containers/MainPage/MainPageContent/People";
 import POS from "../../containers/MainPage/MainPageContent/POS/POS";
 import Product from "../../containers/MainPage/MainPageContent/Product/Product";
@@ -9,7 +9,6 @@ import Reports from "../../containers/MainPage/MainPageContent/Reports/Reports";
 import Sales from "../../containers/MainPage/MainPageContent/Sales";
 import Setting from "../../containers/MainPage/MainPageContent/Setting/Setting";
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
-import { BreakPoints } from "../../Constants/BreakPoints/BreakPoints";
 import { Switch } from "react-router-dom";
 import {
   Grid,
@@ -38,6 +37,7 @@ const NavigationContent = () => {
         <PrivateRoute path="/main/reports" component={Reports} exact />
         <PrivateRoute path="/main/people" component={People} exact />
         <PrivateRoute path="/main/edit-category" component={Edit} exact />
+        <PrivateRoute path="/main/checkouts" component={Checkouts} exact />
         <PrivateRoute path="/main/setting" component={Setting} exact />
         <PrivateRoute
           path="/main/setting/settings"

@@ -36,6 +36,13 @@ const useSignUpPageHook = (props: SignUpPageProps) => {
     });
   };
   useEffect(() => {
+    const isAuth = localStorage.getItem("isUserAuthorized");
+    if (isAuth) {
+      const isUserAuthorized = JSON.parse(isAuth);
+      if (isUserAuthorized) {
+        props.history.push("/main/pos");
+      }
+    }
     const focusTimer = setTimeout(() => {
       nameRef.current.focus();
     }, 200);

@@ -17,3 +17,19 @@ export const addCheckout = (checkout: Checkout, checkouts: Checkout[]) => {
       });
   };
 };
+export const fetchCheckoutsHandler = (checkouts: Checkout[]) => {
+  return { type: actionTypes.FETCH_CHECKOUTS, checkouts: checkouts };
+};
+export const fetchCheckouts = () => {
+  return (dispatch) => {
+    axios
+      .get("checkout")
+      .then((result) => {
+        console.log(result.data.checkouts);
+        dispatch(fetchCheckoutsHandler(result.data.checkouts));
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+};
