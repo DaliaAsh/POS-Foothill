@@ -11,7 +11,6 @@ const useUsers = (props: UsersProps) => {
   const userNameRef = useRef(null);
   const firstNameRef = useRef(null);
   const lastNameRef = useRef(null);
-  const passwordRef = useRef(null);
   const repeatPasswordRef = useRef(null);
   const [imageFile, setImageFile] = useState(null);
   const emailRef = useRef(null);
@@ -32,7 +31,6 @@ const useUsers = (props: UsersProps) => {
       firstName: firstNameRef.current.value,
       lastName: lastNameRef.current.value,
       email: emailRef.current.value,
-      password: passwordRef.current.value,
       userImagePath: imageFile,
       role: role,
     };
@@ -56,7 +54,6 @@ const useUsers = (props: UsersProps) => {
     firstNameRef,
     lastNameRef,
     emailRef,
-    passwordRef,
     repeatPasswordRef,
     uploadImageHandler,
     role,

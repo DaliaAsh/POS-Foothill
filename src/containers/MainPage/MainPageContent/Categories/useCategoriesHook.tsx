@@ -6,6 +6,10 @@ import axios from "axios";
 import { CategoryRowModel } from "../../../../Models/Category/CategoryRowModel";
 import Category from "../../../../Models/Category/Category";
 import IconsAction from "../../../../components/UI/IconsAction/IconsAction";
+import Product from "../../../../Models/Product/Product";
+interface ProductModel extends Product {
+  _id: string;
+}
 interface CategoryDetails {
   image: string;
   name: string;
@@ -16,9 +20,12 @@ interface CategoryModel extends Category {
 interface CategoriesProps {
   onInitCategories: () => void;
   onDeleteCategory: (categoryId: number, categories: CategoryModel[]) => void;
+  onDeleteProduct: (productId: number, products: ProductModel[]) => void;
   onAddCategory: (category: FormData, categories: CategoryModel[]) => void;
+  onInitProducts: () => void;
   history: History;
   categories: CategoryModel[];
+  products: ProductModel[];
   loading: boolean;
 }
 const useCategoriesHook = (props: CategoriesProps) => {
@@ -29,6 +36,7 @@ const useCategoriesHook = (props: CategoriesProps) => {
   const categoryName = useRef(null);
   useEffect(() => {
     props.onInitCategories();
+    props.onInitProducts();
   }, []);
 
   const uploadImageHandler = (event) => {
@@ -48,8 +56,13 @@ const useCategoriesHook = (props: CategoriesProps) => {
   const configureDialogContent = (content: JSX.Element) => {
     setDialogContent(content);
   };
-  const deleteCategoryById = (categoryId: number) => {
+  const deleteCategoryById = (categoryId: number, categoryName: string) => {
     props.onDeleteCategory(categoryId, props.categories);
+    props.products.map((product: ProductModel) => {
+      if (product.category === categoryName) {
+        props.onDeleteProduct(product.id, props.products);
+      }
+    });
   };
   const openImageDialog = (categoryDetails: CategoryDetails): void => {
     console.log(categoryDetails.image);
@@ -78,7 +91,9 @@ const useCategoriesHook = (props: CategoriesProps) => {
       let actionIcons = (
         <>
           <IconsAction.ClearAction
-            handleDeleteItemById={() => deleteCategoryById(categoryItem.id)}
+            handleDeleteItemById={() =>
+              deleteCategoryById(categoryItem.id, categoryItem.name)
+            }
           />
           <IconsAction.EditAction
             handleEditItemById={() =>

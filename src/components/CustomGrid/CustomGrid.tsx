@@ -4,9 +4,12 @@ import User from "../../Models/User";
 import axios from "axios";
 import IconsActions from "../UI/IconsAction/IconsAction";
 import Store from "../../Models/Store";
+import { connect } from "react-redux";
+import * as userActions from "../../store/actions/users";
 interface GridProps {
-  items: any[];
+  users: User[];
   columnNames: string[];
+  onDeleteUser: (userId: number, users: User[]) => void;
 }
 const useStyles = makeStyles(() =>
   createStyles({
@@ -46,26 +49,30 @@ const CustomGrid = (props: GridProps) => {
         })}
       </Grid>
       <Grid className={classes.content}>
-        {props.items.map((item: any) => {
+        {props.users.map((user: User) => {
           return (
             <Grid className={classes.userRow}>
               <Avatar
-                alt={(item as User).userName}
-                src={`${axios.defaults.baseURL}${(item as User).userImagePath}`}
+                alt={(user as User).userName}
+                src={`${axios.defaults.baseURL}${(user as User).userImagePath}`}
               />
               <span className={classes.userCell}>
-                {(item as User).firstName}
+                {(user as User).firstName}
               </span>
               <span className={classes.userCell}>
-                {(item as User).lastName}
+                {(user as User).lastName}
               </span>
               <span className={classes.userCell}>
-                {(item as User).userName}
+                {(user as User).userName}
               </span>
-              <span className={classes.userCell}>{(item as User).role}</span>
+              <span className={classes.userCell}>{(user as User).role}</span>
               <span className={classes.userCell}>
                 <IconsActions.EditAction handleEditItemById={() => {}} />
-                <IconsActions.ClearAction handleDeleteItemById={() => {}} />
+                <IconsActions.ClearAction
+                  handleDeleteItemById={() =>
+                    props.onDeleteUser(user.userId, props.users)
+                  }
+                />
               </span>
             </Grid>
           );
@@ -74,4 +81,11 @@ const CustomGrid = (props: GridProps) => {
     </>
   );
 };
-export default CustomGrid;
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onDeleteUser: (userId: number, users: User[]) =>
+      dispatch(userActions.deleteUser(userId, users)),
+  };
+};
+export default connect(null, mapDispatchToProps)(CustomGrid);

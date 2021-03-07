@@ -23,7 +23,10 @@ const useStyles = makeStyles(() =>
     productsGrid: {
       display: "flex",
       flexWrap: "wrap",
-      justifyContent: "center",
+      justifyContent: "left",
+      "@media(max-width:680px)": {
+        justifyContent: "center",
+      },
     },
   })
 );
@@ -34,14 +37,16 @@ const ProductsPage = (props: ProductsPageProps) => {
   console.log(props.products);
   const classes = useStyles();
   return (
-    <Grid>
-      <Grid className={classes.header}>Products</Grid>
-      <Grid className={classes.productsGrid}>
-        {props.products.map((product: ProductModel) => {
-          return <Product product={product} />;
-        })}
+    <>
+      <Grid>
+        <Grid className={classes.header}>Products</Grid>
+        <Grid className={classes.productsGrid}>
+          {props.products.map((product: ProductModel) => {
+            return <Product product={product} />;
+          })}
+        </Grid>
       </Grid>
-    </Grid>
+    </>
   );
 };
 const mapStateToProps = (state) => {

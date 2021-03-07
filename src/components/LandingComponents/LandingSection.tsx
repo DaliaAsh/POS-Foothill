@@ -108,6 +108,10 @@ const useStyles = makeStyles(() =>
         fontSize: "1em",
         marginLeft: "5em",
       },
+      "&:hover": {
+        cursor: "pointer",
+        color: "#33b2e5",
+      },
     },
     expandIcon: {
       fontSize: "2em",
@@ -331,15 +335,24 @@ const LandingSection = (props) => {
           <CloseIcon className={classes.closeIcon} htmlColor="black" />
         </IconButton>
         <ul className={classes.modalList}>
-          <Grid className={classes.modalItem}>
+          <Grid
+            className={classes.modalItem}
+            onClick={() => navigateToPage("products")}
+          >
             Products
             <ExpandMoreIcon className={classes.expandIcon} />
           </Grid>
-          <Grid className={classes.modalItem}>
+          <Grid
+            className={classes.modalItem}
+            onClick={() => navigateToPage("categories")}
+          >
             Categories
             <ExpandMoreIcon className={classes.expandIcon} />
           </Grid>
-          <Grid className={classes.modalItem}>
+          <Grid
+            className={classes.modalItem}
+            onClick={() => navigateToPage("users")}
+          >
             Users
             <ExpandMoreIcon className={classes.expandIcon} />
           </Grid>

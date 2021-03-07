@@ -4,7 +4,7 @@ const Container = styled("div")({
   width: "100%",
   display: "flex",
   flexDirection: "column",
-  backgroundColor: "black",
+  backgroundColor: "#253138",
   overflowX: "hidden",
 });
 

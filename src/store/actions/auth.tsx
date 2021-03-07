@@ -19,7 +19,11 @@ export const signUpAdmin = (authData: Auth) => {
   };
 };
 export const signInAdminHandler = (signInAuthData: Auth) => {
-  return { type: actionTypes.SIGN_IN_ADMIN, authData: signInAuthData };
+  return {
+    type: actionTypes.SIGN_IN_ADMIN,
+    authData: signInAuthData,
+    loading: false,
+  };
 };
 export const signInAdmin = (authData: SignInAuth) => {
   return (dispatch) => {

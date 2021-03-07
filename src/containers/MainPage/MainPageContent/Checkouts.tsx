@@ -10,7 +10,7 @@ const useStyles = makeStyles(() =>
     root: {
       width: "100%",
       height: "120vh",
-      backgroundColor: `rgb(3,4,5)`,
+      backgroundColor: "#253138",
       display: "flex",
       flexWrap: "wrap",
       overflow: "auto",

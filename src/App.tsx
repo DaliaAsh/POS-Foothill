@@ -5,9 +5,9 @@ import MainPage from "./containers/MainPage/MainPage";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import SignUpPage from "./containers/SignUpPage/SignUpPage";
 import LandingPage from "./containers/LandingPage/LandingPage";
-import UsersPage from "./containers/UsersPage";
+import UsersPage from "./containers/UsersPage/UsersPage";
 import ProductsPage from "./containers/ProductsPage/ProductsPage";
-import CategoriesPage from "./containers/CategoriesPage";
+import CategoriesPage from "./containers/CategoriesPage/CategoriesPage";
 function App() {
   return (
     <>

@@ -19,7 +19,7 @@ import common_ar from "./translations/ar/common.json";
 import common_en from "./translations/en/common.json";
 import axios from "axios";
 import thunk from "redux-thunk";
-axios.defaults.baseURL = "https://glitch.com/edit/#!/industrious-carbonated-chrysanthemum";
+axios.defaults.baseURL = "https://spiky-four-fur.glitch.me/";
 const rootReducer = combineReducers({
   categories: categoriesReducer,
   orders: ordersReducer,

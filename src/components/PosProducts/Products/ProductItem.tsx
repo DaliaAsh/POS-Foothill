@@ -18,12 +18,12 @@ const useStyles = makeStyles((theme: Theme) =>
     card: {
       width: "12em",
       height: "12em",
-      backgroundColor: "#33b2e5",
       display: "flex",
       flexDirection: "column",
       position: "relative",
       marginTop: "2em",
       marginLeft: "2em",
+      boxShadow: `rgba(99, 99, 99, 0.2) 0px 2px 8px 0px`,
     },
     imageGrid: {
       backgroundSize: "cover",
@@ -37,7 +37,6 @@ const useStyles = makeStyles((theme: Theme) =>
       top: "50%",
       zIndex: 1,
       backgroundColor: "#fffe",
-      boxShadow: "0em 0em 0.5em 0.05em #bbb",
       display: "flex",
       flexDirection: "column",
       justifyContent: "center",

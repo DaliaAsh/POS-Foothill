@@ -34,8 +34,6 @@ const Users = (props: UsersProps) => {
     firstNameRef,
     lastNameRef,
     emailRef,
-    passwordRef,
-    repeatPasswordRef,
     uploadImageHandler,
     role,
     handleRoleChange,
@@ -61,14 +59,6 @@ const Users = (props: UsersProps) => {
           inputValue={lastNameRef}
         />
         <AddUserDialog.TextInput inputLabel="Email" inputValue={emailRef} />
-        <AddUserDialog.TextInput
-          inputLabel="Password"
-          inputValue={passwordRef}
-        />
-        <AddUserDialog.TextInput
-          inputLabel="Repeat Password"
-          inputValue={repeatPasswordRef}
-        />
         <AddUserDialog.ImageInput handleUploadImage={uploadImageHandler} />
         <AddUserDialog.RadioInput
           inputLabel="Role"
@@ -83,7 +73,7 @@ const Users = (props: UsersProps) => {
       <SettingsOptions />
       <Grid className={classes.usersContainer}>
         <UsersGrid
-          items={props.users}
+          users={props.users}
           columnNames={[
             "Avatar",
             "first Name",

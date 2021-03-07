@@ -10,10 +10,11 @@ const useStyles = makeStyles(() =>
     root: {
       width: "100%",
       height: "120vh",
-      backgroundColor: `rgb(3,4,5)`,
+      backgroundColor: "#253138",
       display: "flex",
       flexWrap: "wrap",
       overflow: "auto",
+      justifyContent: "center",
     },
   })
 );
@@ -21,6 +22,7 @@ interface PeopleProps {
   loadingUsers: boolean;
   onInitUsers: () => void;
   users: User[];
+  onDeleteUser: (userId: number, users: User[]) => void;
 }
 const People = (props: PeopleProps) => {
   useEffect(() => {
@@ -33,7 +35,13 @@ const People = (props: PeopleProps) => {
   return (
     <Grid className={classes.root}>
       {props.users.map((user: User) => {
-        return <UserCard user={user} key={user.userId} />;
+        return (
+          <UserCard
+            user={user}
+            key={user.userId}
+            deleteUser={() => props.onDeleteUser(user.userId, props.users)}
+          />
+        );
       })}
     </Grid>
   );
@@ -47,6 +55,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onInitUsers: () => dispatch(usersActions.fetchUsers()),
+    onDeleteUser: (userId, users) =>
+      dispatch(usersActions.deleteUser(userId, users)),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(People);

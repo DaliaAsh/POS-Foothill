@@ -1,12 +1,10 @@
 import React from "react";
 import { Grid, makeStyles, createStyles } from "@material-ui/core";
-import ProductFields from "../../Models/Product/Product";
+import UserFields from "../../Models/User";
 import axios from "axios";
-interface ProductModel extends ProductFields {
-  _id: string;
-}
-interface ProductProps {
-  product: ProductModel;
+
+interface UserProps {
+  user: UserFields;
 }
 const useStyles = makeStyles(() =>
   createStyles({
@@ -40,24 +38,22 @@ const useStyles = makeStyles(() =>
     },
   })
 );
-const Product = (props: ProductProps) => {
+const User = (props: UserProps) => {
   const classes = useStyles(props);
-  console.log(`${axios.defaults.baseURL}${props.product.productImage}`);
+
   return (
-    <Grid className={classes.root} key={props.product.id}>
+    <Grid className={classes.root} key={props.user.userId}>
       <Grid className={classes.image}>
         <img
-          src={`${axios.defaults.baseURL}${props.product.productImage}`}
+          src={`${axios.defaults.baseURL}${props.user.userImagePath}`}
           width="100%"
           height="100%"
         />
       </Grid>
       <Grid className={classes.information}>
-        <Grid className={classes.name}>{props.product.name}</Grid>
-        <Grid className={classes.description}>{props.product.description}</Grid>
-        <Grid className={classes.price}>{props.product.price}$</Grid>
+        <Grid className={classes.name}>{props.user.userName}</Grid>
       </Grid>
     </Grid>
   );
 };
-export default Product;
+export default User;

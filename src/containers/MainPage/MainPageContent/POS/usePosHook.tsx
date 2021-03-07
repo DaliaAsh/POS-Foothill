@@ -12,8 +12,6 @@ const usePosHook = (props: PosProps) => {
   const userNameRef = useRef(null);
   const firstNameRef = useRef(null);
   const lastNameRef = useRef(null);
-  const passwordRef = useRef(null);
-  const repeatPasswordRef = useRef(null);
   const [imageFile, setImageFile] = useState(null);
   const emailRef = useRef(null);
   useEffect(() => {
@@ -34,7 +32,6 @@ const usePosHook = (props: PosProps) => {
       firstName: firstNameRef.current.value,
       lastName: lastNameRef.current.value,
       email: emailRef.current.value,
-      password: passwordRef.current.value,
       userImagePath: imageFile,
       role: role,
     };
@@ -62,8 +59,6 @@ const usePosHook = (props: PosProps) => {
     firstNameRef,
     lastNameRef,
     emailRef,
-    passwordRef,
-    repeatPasswordRef,
     uploadImageHandler,
     role,
     handleRoleChange,

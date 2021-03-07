@@ -56,7 +56,7 @@ const NavigationHeader = (props) => {
     display: "flex",
     flexDirection: "row",
     paddingTop: "1em",
-    backgroundColor: "black",
+    backgroundColor: "#2f3e47",
     alignItems: "center",
     flexWrap: "wrap",
     borderBottom: "5px solid #33b2e5",

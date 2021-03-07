@@ -22,6 +22,9 @@ const reducer = (state = initialState, action: Action) => {
     case actionTypes.FETCH_USERS: {
       return updateObject(state, { users: action.users, loadingUsers: false });
     }
+    case actionTypes.DELETE_USER: {
+      return updateObject(state, { users: action.users, loadingUsers: false });
+    }
     default:
       return state;
   }

@@ -40,14 +40,14 @@ const useStyles = makeStyles((theme: Theme) =>
       flexDirection: "column",
     },
     paper1: {
-      backgroundColor: "#555",
+      backgroundColor: "#fff",
       width: "100%",
       height: "100%",
     },
     paper2: {
       width: "100%",
       height: "100%",
-      backgroundColor: "#555",
+      backgroundColor: "#fff",
       overflow: "auto",
     },
     rowGridItemContainer1: {
@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     container: {
       width: "100%",
-      backgroundColor: "black",
+      backgroundColor: "#253138",
       overflowX: "hidden",
     },
   })
@@ -86,8 +86,6 @@ const Pos = (props: PosProps) => {
     firstNameRef,
     lastNameRef,
     emailRef,
-    passwordRef,
-    repeatPasswordRef,
     uploadImageHandler,
     role,
     handleRoleChange,
@@ -115,14 +113,6 @@ const Pos = (props: PosProps) => {
           inputValue={lastNameRef}
         />
         <AddUserDialog.TextInput inputLabel="Email" inputValue={emailRef} />
-        <AddUserDialog.TextInput
-          inputLabel="Password"
-          inputValue={passwordRef}
-        />
-        <AddUserDialog.TextInput
-          inputLabel="Repeat Password"
-          inputValue={repeatPasswordRef}
-        />
         <AddUserDialog.ImageInput handleUploadImage={uploadImageHandler} />
         <AddUserDialog.RadioInput
           inputLabel="Role"

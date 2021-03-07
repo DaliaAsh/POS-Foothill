@@ -11,7 +11,7 @@ interface CategoriesReducerAction {
   categoryId: number;
 }
 const initialState: CategoriesReducerState = {
-  categories: null,
+  categories: [],
   loading: true,
 };
 const reducer = (state = initialState, action: CategoriesReducerAction) => {

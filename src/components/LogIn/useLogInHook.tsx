@@ -44,6 +44,7 @@ const useLogInHook = (props: useLogInHookProps) => {
     if (nameError !== "" || passwordError !== "") {
       return;
     }
+
     const signInAuth: SignInAuth = {
       name: userName.current.value,
       password: password.current.value,

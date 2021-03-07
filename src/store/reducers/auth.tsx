@@ -8,9 +8,11 @@ interface Action {
 }
 interface State {
   authData: Auth;
+  loading: boolean;
 }
 const initialState: State = {
   authData: null,
+  loading: false,
 };
 const reducer = (state = initialState, action: Action) => {
   switch (action.type) {
@@ -22,6 +24,7 @@ const reducer = (state = initialState, action: Action) => {
       return updateObject(state, {
         isUserAuthorized: true,
         authData: action.authData,
+        loading: true,
       });
     default:
       return state;

@@ -8,9 +8,9 @@ const useStyles = makeStyles(() =>
       width: "20em",
       height: "18em",
       backgroundColor: "white",
-      marginLeft: "auto",
+      marginLeft: "2em",
       marginTop: "5em",
-      marginRight: "auto",
+      marginRight: "2em",
       animation: "2s $fadeIn",
     },
     "@keyframes fadeIn": {
@@ -64,6 +64,7 @@ const useStyles = makeStyles(() =>
 );
 interface UserCardProps {
   user: User;
+  deleteUser: () => void;
 }
 const UserCard = (props: UserCardProps) => {
   const classes = useStyles();
@@ -78,7 +79,9 @@ const UserCard = (props: UserCardProps) => {
       <Grid>
         <h1 className={classes.username}>{props.user.userName}</h1>
         <Grid className={classes.role}>{props.user.role}</Grid>
-        <Grid className={classes.deleteButton}>Delete</Grid>
+        <Grid className={classes.deleteButton} onClick={props.deleteUser}>
+          Delete
+        </Grid>
       </Grid>
     </Grid>
   );

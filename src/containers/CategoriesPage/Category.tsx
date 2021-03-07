@@ -1,12 +1,12 @@
 import React from "react";
 import { Grid, makeStyles, createStyles } from "@material-ui/core";
-import ProductFields from "../../Models/Product/Product";
+import Category from "../../Models/Category/Category";
 import axios from "axios";
-interface ProductModel extends ProductFields {
+interface CategoryModel extends Category {
   _id: string;
 }
-interface ProductProps {
-  product: ProductModel;
+interface CategoryProps {
+  category: CategoryModel;
 }
 const useStyles = makeStyles(() =>
   createStyles({
@@ -40,24 +40,22 @@ const useStyles = makeStyles(() =>
     },
   })
 );
-const Product = (props: ProductProps) => {
+const CategoryItem = (props: CategoryProps) => {
   const classes = useStyles(props);
-  console.log(`${axios.defaults.baseURL}${props.product.productImage}`);
+  console.log(`${axios.defaults.baseURL}${props.category.categoryImage}`);
   return (
-    <Grid className={classes.root} key={props.product.id}>
+    <Grid className={classes.root} key={props.category.id}>
       <Grid className={classes.image}>
         <img
-          src={`${axios.defaults.baseURL}${props.product.productImage}`}
+          src={`${axios.defaults.baseURL}${props.category.categoryImage}`}
           width="100%"
           height="100%"
         />
       </Grid>
       <Grid className={classes.information}>
-        <Grid className={classes.name}>{props.product.name}</Grid>
-        <Grid className={classes.description}>{props.product.description}</Grid>
-        <Grid className={classes.price}>{props.product.price}$</Grid>
+        <Grid className={classes.name}>{props.category.name}</Grid>
       </Grid>
     </Grid>
   );
 };
-export default Product;
+export default CategoryItem;

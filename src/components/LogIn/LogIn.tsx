@@ -17,6 +17,7 @@ import * as authActions from "../../store/actions/auth";
 
 interface logInProps {
   onSignInAdmin: (authData: SignInAuth) => any;
+  loading: boolean;
 }
 const MainHeader = styled(Grid)({
   margin: "auto",
@@ -107,66 +108,77 @@ const LogIn = (props: logInProps) => {
   });
   return (
     <LogInCard>
-      <MainHeader>
-        <Grid
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-          }}
-        >
-          <TextMainSpan>{t("login.title")}</TextMainSpan>
-          <img width="80" height="80" src={Black} />
-        </Grid>
+      {props.loading ? (
+        <div>loading</div>
+      ) : (
+        <>
+          <MainHeader>
+            <Grid
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
+              <TextMainSpan>{t("login.title")}</TextMainSpan>
+              <img width="80" height="80" src={Black} />
+            </Grid>
 
-        <br />
-        <TextSecondarySpan>{t("login.subtitle")}</TextSecondarySpan>
-      </MainHeader>
-      <FormContainer
-        onSubmit={(event) => {
-          validateFormHandler(event);
-        }}
-      >
-        <FormControl>
-          <InputField
-            placeholder={t("login.name")}
-            type="text"
-            inputRef={userName}
-            required={true}
-            onChange={() => validateName(userName.current.value)}
-          />
-          <WarningHelperText error={nameError} />
-        </FormControl>
-        <FormControl>
-          <InputField
-            placeholder={t("login.password")}
-            type="password"
-            inputRef={password}
-            required={true}
-            onChange={() => validatePasswordInline(password.current.value)}
-          />
-          <WarningHelperText error={passwordError} />
-        </FormControl>
+            <br />
+            <TextSecondarySpan>{t("login.subtitle")}</TextSecondarySpan>
+          </MainHeader>
+          <FormContainer
+            onSubmit={(event) => {
+              validateFormHandler(event);
+            }}
+          >
+            <FormControl>
+              <InputField
+                placeholder={t("login.name")}
+                type="text"
+                inputRef={userName}
+                required={true}
+                onChange={() => validateName(userName.current.value)}
+              />
+              <WarningHelperText error={nameError} />
+            </FormControl>
+            <FormControl>
+              <InputField
+                placeholder={t("login.password")}
+                type="password"
+                inputRef={password}
+                required={true}
+                onChange={() => validatePasswordInline(password.current.value)}
+              />
+              <WarningHelperText error={passwordError} />
+            </FormControl>
 
-        <LogInButton type="submit">{t("login.button")}</LogInButton>
-        <CopyrightContainer>
-          <CopyrightIcon fontSize="small" />
-          {t("login.footer")}{" "}
-          <LanguageSpan onClick={switchToArabic}>العربية</LanguageSpan>
-          <LanguageSpan onClick={switchToEnglish}>English</LanguageSpan>
-          <CreateAccountSpan onClick={navigateToCreateAccountPage}>
-            {t("login.signUp")}
-          </CreateAccountSpan>
-        </CopyrightContainer>
-      </FormContainer>
+            <LogInButton type="submit">{t("login.button")}</LogInButton>
+            <CopyrightContainer>
+              <CopyrightIcon fontSize="small" />
+              {t("login.footer")}{" "}
+              <LanguageSpan onClick={switchToArabic}>العربية</LanguageSpan>
+              <LanguageSpan onClick={switchToEnglish}>English</LanguageSpan>
+              <CreateAccountSpan onClick={navigateToCreateAccountPage}>
+                {t("login.signUp")}
+              </CreateAccountSpan>
+            </CopyrightContainer>
+          </FormContainer>
+        </>
+      )}
     </LogInCard>
   );
 };
 
+const mapStateToProps = (state) => {
+  return {
+    loading: state.auth.loading,
+  };
+};
 const mapDispatchToProps = (dispatch) => {
   return {
     onSignInAdmin: (authData: SignInAuth) =>
       dispatch(authActions.signInAdmin(authData)),
   };
 };
-export default connect(null, mapDispatchToProps)(LogIn);
+export default connect(mapStateToProps, mapDispatchToProps)(LogIn);
